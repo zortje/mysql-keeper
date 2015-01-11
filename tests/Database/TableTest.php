@@ -22,7 +22,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTableResult() {
-		$this->pdo->query(file_get_contents('/home/travis/build/zortje/mysql-keeper/tests/database/files/users.sql'));
+		$this->pdo->query(file_get_contents('tests/Database/files/users.sql'));
 
 		$table = new Table('users', $this->pdo);
 
