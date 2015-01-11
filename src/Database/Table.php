@@ -3,6 +3,7 @@
 namespace Zortje\MySQLKeeper\Database;
 
 use Zortje\MySQLKeeper\Database\Table\Column;
+use Zortje\MySQLKeeper\Database\Table\Index;
 
 /**
  * Class Table
@@ -17,7 +18,7 @@ class Table {
 	private $columns;
 
 	/**
-	 * @var array Table indices
+	 * @var Index[] Table indices
 	 */
 	private $indices;
 
@@ -54,6 +55,11 @@ class Table {
 				$this->result[] = $result;
 			}
 		}
+
+		/**
+		 * Find duplicate indices
+		 */
+		// @todo
 
 		return $this->result;
 	}
