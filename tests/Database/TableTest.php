@@ -12,7 +12,7 @@ use Zortje\MySQLKeeper\Database\Table;
 class TableTest extends \PHPUnit_Framework_TestCase {
 
 	public function testTableResult() {
-		$pdo = new \PDO("mysql:host=127.0.0.1;dbname=myapp_test", 'root', 'godmode');
+		$pdo = new \PDO("mysql:host=127.0.0.1;dbname=myapp_test", 'root', '');
 		$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
 		$pdo->query(file_get_contents('tests/database/files/users.sql'));
