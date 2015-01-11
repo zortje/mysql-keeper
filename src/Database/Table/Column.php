@@ -63,6 +63,11 @@ class Column {
 	 */
 	public function getResult() {
 		/**
+		 * Reset result
+		 */
+		$this->result = [];
+
+		/**
 		 * auto_increment checks
 		 */
 		if ($this->extra === 'auto_increment') {

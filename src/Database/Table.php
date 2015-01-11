@@ -41,7 +41,15 @@ class Table {
 	 * @return array Result
 	 */
 	public function getResult() {
-		foreach ($this->pdo->query('SHOW COLUMNS FROM `users`;') as $row) {
+		/**
+		 * Reset result
+		 */
+		$this->result = [];
+
+		/**
+		 * Show columns for table
+		 */
+		foreach ($this->pdo->query("SHOW COLUMNS FROM `$this->table`;") as $row) {
 			$column = new Column($row);
 
 			foreach ($column->getResult() as $result) {
