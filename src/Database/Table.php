@@ -12,14 +12,14 @@ use Zortje\MySQLKeeper\Database\Table\Column;
 class Table {
 
 	/**
-	 * @var string
+	 * @var Column[] Table columns
 	 */
-	private $table;
+	private $columns;
 
 	/**
-	 * @var \PDO
+	 * @var array Table indices
 	 */
-	private $pdo;
+	private $indices;
 
 	/**
 	 * @var array
@@ -27,12 +27,12 @@ class Table {
 	private $result = [];
 
 	/**
-	 * @param string $table Table name
-	 * @param \PDO   $pdo   Database connection
+	 * @param Column[] $columns Table columns
+	 * @param Index[]  $indices Table indices
 	 */
-	public function __construct($table, \PDO $pdo) {
-		$this->table = $table;
-		$this->pdo   = $pdo;
+	public function __construct($columns, $indices) {
+		$this->columns = $columns;
+		$this->indices = $indices;
 	}
 
 	/**
@@ -47,11 +47,9 @@ class Table {
 		$this->result = [];
 
 		/**
-		 * Show columns for table
+		 * Go though columns and get result
 		 */
-		foreach ($this->pdo->query("SHOW COLUMNS FROM `$this->table`;") as $row) {
-			$column = new Column($row);
-
+		foreach ($this->columns as $column) {
 			foreach ($column->getResult() as $result) {
 				$this->result[] = $result;
 			}

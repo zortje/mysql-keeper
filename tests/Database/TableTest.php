@@ -11,20 +11,19 @@ use Zortje\MySQLKeeper\Database\Table;
  */
 class TableTest extends \PHPUnit_Framework_TestCase {
 
-	/**
-	 * @var \PDO
-	 */
-	protected $pdo;
-
-	public function setUp() {
-		$this->pdo = new \PDO("mysql:host=127.0.0.1;dbname=myapp_test", 'root', '');
-		$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-	}
-
 	public function testTableResult() {
-		$this->pdo->query(file_get_contents('tests/Database/files/users.sql'));
+		$columns = [
+			new Table\Column([
+				'Field'   => 'id',
+				'Type'    => 'int(10) unsigned',
+				'Null'    => 'NO',
+				'Key'     => 'MUL',
+				'Default' => '',
+				'Extra'   => 'auto_increment'
+			])
+		];
 
-		$table = new Table('users', $this->pdo);
+		$table = new Table($columns, []);
 
 		$result = $table->getResult();
 
@@ -33,12 +32,21 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testResetOfIssues() {
-		$this->pdo->query(file_get_contents('tests/Database/files/users.sql'));
+		$columns = [
+			new Table\Column([
+				'Field'   => 'id',
+				'Type'    => 'int(10) unsigned',
+				'Null'    => 'NO',
+				'Key'     => 'MUL',
+				'Default' => '',
+				'Extra'   => 'auto_increment'
+			])
+		];
 
 		/**
 		 * Check getResult once and save the result
 		 */
-		$table = new Table('users', $this->pdo);
+		$table = new Table($columns, []);
 
 		$result = $table->getResult();
 
