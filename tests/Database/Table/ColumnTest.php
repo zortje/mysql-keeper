@@ -26,7 +26,6 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$result = $column->getResult();
 
 		$this->assertGreaterThan(0, count($result));
-		$this->assertTrue(in_array('An auto_increment column should have a primary key', $result));
+		$this->assertTrue(in_array('Set as auto_increment but has no primary key', $result[0]));
 	}
-
 }

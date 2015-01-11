@@ -42,7 +42,7 @@ class Column {
 	/**
 	 * @var array
 	 */
-	private $result;
+	private $result = [];
 
 	/**
 	 * @param array $column Column information
@@ -56,17 +56,25 @@ class Column {
 		$this->extra   = $column['Extra'];
 	}
 
+	/**
+	 * Get result of column
+	 *
+	 * @return array Result
+	 */
 	public function getResult() {
 		/**
 		 * auto_increment checks
 		 */
 		if ($this->extra === 'auto_increment') {
 			if ($this->key !== 'PRI') {
-				$this->result[] = 'An auto_increment column should have a primary key';
+				$this->result[] = [
+					'type'        => 'column',
+					'field'       => 'id',
+					'description' => 'Set as auto_increment but has no primary key'
+				];
 			}
 		}
 
 		return $this->result;
 	}
-
 }
