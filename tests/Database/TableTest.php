@@ -11,13 +11,20 @@ use Zortje\MySQLKeeper\Database\Table;
  */
 class TableTest extends \PHPUnit_Framework_TestCase {
 
+	/**
+	 * @var \PDO
+	 */
+	protected $pdo;
+
+	public function setUp() {
+		$this->pdo = new \PDO("mysql:host=127.0.0.1;dbname=myapp_test", 'root', '');
+		$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+	}
+
 	public function testTableResult() {
-		$pdo = new \PDO("mysql:host=127.0.0.1;dbname=myapp_test", 'root', '');
-		$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+		$this->pdo->query(file_get_contents('/home/travis/build/zortje/mysql-keeper/tests/database/files/users.sql'));
 
-		$pdo->query(file_get_contents('tests/database/files/users.sql'));
-
-		$table = new Table('users', $pdo);
+		$table = new Table('users', $this->pdo);
 
 		$result = $table->getResult();
 
