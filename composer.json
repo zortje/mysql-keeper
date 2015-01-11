@@ -1,6 +1,6 @@
 {
   "name": "zortje/mysql-keeper",
-  "description": "Find incorrect configurations or missed optimization opportunities in mysql databases",
+  "description": "Find incorrect configurations or missed optimization opportunities in MySQL databases",
   "version": "0.0.0",
   "type": "library",
   "keywords": ["mysql", "optimization"],
