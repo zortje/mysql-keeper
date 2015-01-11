@@ -7,14 +7,16 @@ Find incorrect configurations or missed optimization opportunities in mysql data
 ### Implementation
 
 ```PHP
-$mysqlKeeper = new MysqlKeeper($user, $password, $database);
+$pdo = new PDO("mysql:host=127.0.0.1;dbname=myapp", 'root', 'password');
 
-$tablesResults = $mysqlKeeper->getAllTableResults();
+$database = new Database($pdo);
+$databaseResult = $database->getResult();
 
-$tableResult = $mysqlKeeper->getTableResult($tableName);
+$table = new Table('users', $pdo);
+$tableResult = $table->getResult();
 ```
 
-The `$tablesResults` array will look something like this with the first level keys being table names.
+The `$databaseResult` array will look something like this with the first level keys being table names.
 
 ```PHP
 [
@@ -22,19 +24,19 @@ The `$tablesResults` array will look something like this with the first level ke
 		'issues' => [
 			[
 				'type' => 'field',
-				'name' => 'id',
-				'description' => 'Set as auto_increment but is not set as primary'
+				'field' => 'id',
+				'description' => 'Set as auto_increment but has no primary key'
 			],
 			[
 				'type' => 'field',
-				'name' => 'id',
+				'field' => 'id',
 				'description' => 'Set as auto_increment but is not set as primary'
 			]
 		],
 		'optimizations' => [
 			[
 				'type' => 'field',
-				'name' => 'id',
+				'field' => 'id',
 				'description' => 'Field should be unsigned, as no field values are negative'
 			]
 		]
@@ -49,19 +51,19 @@ The `$tableResult` array will look something like this.
 	'issues' => [
 		[
 			'type' => 'field',
-			'name' => 'id',
+			'field' => 'id',
 			'description' => 'Set as auto_increment but is not set as primary'
 		],
 		[
 			'type' => 'field',
-			'name' => 'id',
+			'field' => 'id',
 			'description' => 'Set as auto_increment but is not set as primary'
 		]
 	],
 	'optimizations' => [
 		[
 			'type' => 'field',
-			'name' => 'id',
+			'field' => 'id',
 			'description' => 'Field should be unsigned, as no field values are negative'
 		]
 	]
