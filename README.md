@@ -4,15 +4,15 @@ Find incorrect configurations or missed optimization opportunities in mysql data
 
 [![Travis](https://img.shields.io/travis/zortje/mysql-keeper.svg?style=flat)](https://travis-ci.org/zortje/mysql-keeper) [![Scrutinizer branch](https://img.shields.io/scrutinizer/coverage/g/zortje/mysql-keeper/master.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Scrutinizer](https://img.shields.io/scrutinizer/g/zortje/mysql-keeper.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master)
 
-### Implementation
+## Usage
 
 ```PHP
-$pdo = new PDO("mysql:host=127.0.0.1;dbname=myapp", 'root', 'password');
+$pdo = new PDO("mysql:host=127.0.0.1;dbname=myapp", 'root', '********');
 
-$database = new Database($pdo);
+$database = new DatabaseFactory::create($pdo);
 $databaseResult = $database->getResult();
 
-$table = new Table('users', $pdo);
+$table = new TableFactory::create('users', $pdo);
 $tableResult = $table->getResult();
 ```
 
@@ -70,10 +70,17 @@ The `$tableResult` array will look something like this.
 ];
 ```
 
+*Coming Soon™, how to easily run MySQL Keeper with Melody*
+
+## Features
+
+Detects the following issues
+
+* A column with auto_increment should have a primary key
+
 ### Checklist
 
 * Issues
- * auto_increment should be primary
  * Redundant unique index (like on primary)
  * Inconsistent usage of character sets (table and fields)
  * Duplicate indices
@@ -82,13 +89,6 @@ The `$tableResult` array will look something like this.
 
 
 ### SQL cheat sheet
-
-Get fields from table
-
-```SQL
-SHOW COLUMNS FROM `users`;
-```
-
 
 Get index information from table
 
