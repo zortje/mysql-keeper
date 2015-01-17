@@ -3,6 +3,7 @@
 namespace Zortje\MySQLKeeper\Database;
 
 use Zortje\MySQLKeeper\Database\Table\Column;
+use Zortje\MySQLKeeper\Database\Table\Index;
 
 /**
  * Class TableFactory
@@ -32,7 +33,19 @@ class TableFactory {
 		/**
 		 * Indices
 		 */
+		$indexRows = [];
+
+		foreach ($pdo->query("SHOW INDEX FROM `$tableName`;") as $row) {
+			$indexRows[$row['Key_name']][] = $row['Column_name'];
+		}
+
 		$indices = [];
+
+		foreach ($indexRows as $keyName => $columnNames) {
+			$index = new Index($keyName, $columnNames);
+
+			$indices[] = $index;
+		}
 
 		/**
 		 * Initialization
