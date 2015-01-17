@@ -74,7 +74,7 @@ class Column {
 			if ($this->key !== 'PRI') {
 				$this->result[] = [
 					'type'        => 'column',
-					'field'       => 'id',
+					'field'       => $this->field,
 					'description' => 'Set as auto_increment but has no primary key'
 				];
 			}

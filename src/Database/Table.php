@@ -60,7 +60,7 @@ class Table {
 		 * Find duplicate indices
 		 */
 		foreach ($this->indices as $i => $index) {
-			foreach ($this->indices as $j => $indexTwo) { // @todo what to name this...
+			foreach ($this->indices as $j => $indexTwo) {
 				/**
 				 * Only check index that came before current index
 				 */
@@ -74,8 +74,8 @@ class Table {
 				if ($index->isDuplicate($indexTwo)) {
 					$this->result[] = [
 						'type'        => 'index',
-						'field'       => 'id',
-						'description' => sprintf('%s is duplicate of %s', $index->getKeyName(), $indexTwo->getKeyName())
+						'key'         => $index->getKeyName(),
+						'description' => sprintf('Is duplicate of %s', $indexTwo->getKeyName())
 					];
 
 					break;
