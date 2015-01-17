@@ -71,7 +71,7 @@ class Table {
 				/**
 				 * Check if index is duplicate
 				 */
-				if ($index->isDuplicate($indexTwo)) {
+				if ($index->isDuplicate($indexTwo) === true) {
 					$this->result[] = [
 						'type'        => 'index',
 						'key'         => $index->getKeyName(),
