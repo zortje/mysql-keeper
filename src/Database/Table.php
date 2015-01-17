@@ -59,7 +59,27 @@ class Table {
 		/**
 		 * Find duplicate indices
 		 */
-		// @todo
+		foreach ($this->indices as $i => $index) {
+
+			foreach ($this->indices as $j => $index) { // @todo what to name this...
+				/**
+				 * Only check index that came before current index
+				 */
+				if ($j >= $i) {
+					break;
+				}
+
+				/**
+				 * Check if index is duplicate
+				 */
+				if ($index->isDuplicate($index)) { // @todo what to name second index...
+					$this->result[] = 'X.keyName is duplicate'; // @todo use method getKeyName();
+
+					break;
+				}
+			}
+
+		}
 
 		return $this->result;
 	}
