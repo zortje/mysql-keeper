@@ -79,19 +79,10 @@ Detects the following issues
 * A column with auto_increment should have a primary key
 * Duplicate indices
 
-### Checklist
+#### Checklist
 
 * Issues
  * Redundant unique index (like on primary)
  * Inconsistent usage of character sets (table and fields)
 * optimizations
  * Numeric fields should not be signed if no negative values are stored
-
-
-### SQL cheat sheet
-
-Get index information from table
-
-```SQL
-SHOW INDEX FROM `users`;
-```
