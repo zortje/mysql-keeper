@@ -2,7 +2,19 @@
 
 Find incorrect configurations or missed optimization opportunities in MySQL databases.
 
-[![Travis](https://img.shields.io/travis/zortje/mysql-keeper.svg?style=flat)](https://travis-ci.org/zortje/mysql-keeper) [![Scrutinizer branch](https://img.shields.io/scrutinizer/coverage/g/zortje/mysql-keeper/master.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Scrutinizer](https://img.shields.io/scrutinizer/g/zortje/mysql-keeper.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master)
+[![Travis](https://img.shields.io/travis/zortje/mysql-keeper.svg?style=flat)](https://travis-ci.org/zortje/mysql-keeper) [![Scrutinizer branch](https://img.shields.io/scrutinizer/coverage/g/zortje/mysql-keeper/master.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Scrutinizer](https://img.shields.io/scrutinizer/g/zortje/mysql-keeper.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Packagist](https://img.shields.io/packagist/v/zortje/mysql-keeper.svg?style=flat)]() [![Packagist](https://img.shields.io/packagist/dt/zortje/mysql-keeper.svg?style=flat)]()
+
+## Installing via Composer
+
+The recommended way to install MySQL Keeper is though [Composer](https://getcomposer.org/).
+
+```
+{
+    "require": {
+        "zortje/mysql-keeper": "~0.0"
+    }
+}
+```
 
 ## Usage
 
