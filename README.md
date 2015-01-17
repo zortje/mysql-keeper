@@ -77,13 +77,13 @@ The `$tableResult` array will look something like this.
 Detects the following issues
 
 * A column with auto_increment should have a primary key
+* Duplicate indices
 
 ### Checklist
 
 * Issues
  * Redundant unique index (like on primary)
  * Inconsistent usage of character sets (table and fields)
- * Duplicate indices
 * optimizations
  * Numeric fields should not be signed if no negative values are stored
 
