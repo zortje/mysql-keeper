@@ -31,6 +31,14 @@ class IndexTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($indexBeta->isDuplicate($indexAlpha));
 	}
 
+	public function testIsDuplicateNot() {
+		$indexAlpha = new Index(null, ['id']);
+		$indexBeta  = new Index(null, ['active']);
+
+		$this->assertFalse($indexAlpha->isDuplicate($indexBeta));
+		$this->assertFalse($indexBeta->isDuplicate($indexAlpha));
+	}
+
 	public function testIsDuplicateMultiple() {
 		$indexAlpha = new Index(null, ['id', 'active']);
 		$indexBeta  = new Index(null, ['id', 'active']);

@@ -28,7 +28,20 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $table->getResult();
 
-		$this->assertGreaterThan(0, count($result));
-		$this->assertTrue(in_array('Set as auto_increment but has no primary key', $result[0]));
+		$this->assertSame(2, count($result));
+
+		$expected = [
+			[
+				'type'        => 'column',
+				'field'       => 'id',
+				'description' => 'Set as auto_increment but has no primary key'
+			],
+			[
+				'type'        => 'index',
+				'key'         => 'id_active2',
+				'description' => 'Is duplicate of id_active'
+			]
+		];
+		$this->assertSame($expected, $result);
 	}
 }
