@@ -23,11 +23,6 @@ class Table {
 	private $indices;
 
 	/**
-	 * @var array
-	 */
-	private $result = [];
-
-	/**
 	 * @param Column[] $columns Table columns
 	 * @param Index[]  $indices Table indices
 	 */
@@ -37,7 +32,7 @@ class Table {
 	}
 
 	/**
-	 * Get result of column
+	 * Get result of table
 	 *
 	 * @return array Result
 	 */
@@ -45,22 +40,47 @@ class Table {
 		/**
 		 * Reset result
 		 */
-		$this->result = [];
+		$result = [];
 
 		/**
 		 * Go though columns and get result
-		 */
-		foreach ($this->columns as $column) {
-			foreach ($column->getResult() as $result) {
-				$this->result[] = $result;
-			}
-		}
-
-		/**
 		 * Find duplicate indices
 		 */
-		foreach ($this->indices as $i => $index) {
-			foreach ($this->indices as $j => $indexTwo) {
+		$result = array_merge($result, $this->checkColumns($this->columns));
+		$result = array_merge($result, $this->checkDuplicateIndices($this->indices));
+
+		return $result;
+	}
+
+	/**
+	 * Get result of columns
+	 *
+	 * @param Column[] $columns Table columns
+	 *
+	 * @return array Result
+	 */
+	public function checkColumns($columns) {
+		$result = [];
+
+		foreach ($columns as $column) {
+			$result = array_merge($result, $column->getResult());
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Check for duplicate indices
+	 *
+	 * @param Index[] $indices Table indices
+	 *
+	 * @return array Result
+	 */
+	public function checkDuplicateIndices($indices) {
+		$result = [];
+
+		foreach ($indices as $i => $index) {
+			foreach ($indices as $j => $indexTwo) {
 				/**
 				 * Only check index that came before current index
 				 */
@@ -72,7 +92,7 @@ class Table {
 				 * Check if index is duplicate
 				 */
 				if ($index->isDuplicate($indexTwo) === true) {
-					$this->result[] = [
+					$result[] = [
 						'type'        => 'index',
 						'key'         => $index->getKeyName(),
 						'description' => sprintf('Is duplicate of %s', $indexTwo->getKeyName())
@@ -83,6 +103,6 @@ class Table {
 			}
 		}
 
-		return $this->result;
+		return $result;
 	}
 }
