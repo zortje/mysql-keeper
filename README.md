@@ -8,7 +8,7 @@ Find incorrect configurations or missed optimization opportunities in MySQL data
 
 The recommended way to install MySQL Keeper is though [Composer](https://getcomposer.org/).
 
-```
+```JSON
 {
     "require": {
         "zortje/mysql-keeper": "~0.0"
