@@ -22,6 +22,11 @@ class Column {
 	/**
 	 * @var string
 	 */
+	private $collation;
+
+	/**
+	 * @var string
+	 */
 	private $null;
 
 	/**
