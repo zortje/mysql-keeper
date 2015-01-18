@@ -14,12 +14,13 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetField() {
 		$row = [
-			'Field'   => 'id',
-			'Type'    => 'int(10) unsigned',
-			'Null'    => 'NO',
-			'Key'     => 'PRI',
-			'Default' => '',
-			'Extra'   => 'auto_increment'
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'PRI',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
 		];
 
 		$column = new Column($row);
@@ -29,12 +30,13 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 
 	public function testIsPrimaryKey() {
 		$row = [
-			'Field'   => 'id',
-			'Type'    => 'int(10) unsigned',
-			'Null'    => 'NO',
-			'Key'     => 'PRI',
-			'Default' => '',
-			'Extra'   => 'auto_increment'
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'PRI',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
 		];
 
 		$column = new Column($row);
@@ -44,12 +46,13 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 
 	public function testIsPrimaryKeyNot() {
 		$row = [
-			'Field'   => 'modified',
-			'Type'    => 'datetime',
-			'Null'    => 'NO',
-			'Key'     => '',
-			'Default' => '',
-			'Extra'   => ''
+			'Field'     => 'modified',
+			'Type'      => 'datetime',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => '',
+			'Default'   => '',
+			'Extra'     => ''
 		];
 
 		$column = new Column($row);
@@ -59,12 +62,13 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 
 	public function testIncorrectAutoIncrementKey() {
 		$row = [
-			'Field'   => 'id',
-			'Type'    => 'int(10) unsigned',
-			'Null'    => 'NO',
-			'Key'     => 'MUL',
-			'Default' => '',
-			'Extra'   => 'auto_increment'
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'MUL',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
 		];
 
 		$column = new Column($row);
@@ -77,12 +81,13 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 
 	public function testResetOfIssues() {
 		$row = [
-			'Field'   => 'id',
-			'Type'    => 'int(10) unsigned',
-			'Null'    => 'NO',
-			'Key'     => 'MUL',
-			'Default' => '',
-			'Extra'   => 'auto_increment'
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'MUL',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
 		];
 
 		/**

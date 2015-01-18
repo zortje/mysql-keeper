@@ -48,12 +48,13 @@ class Column {
 	 * @param array $column Column information
 	 */
 	public function __construct($column) {
-		$this->field   = $column['Field'];
-		$this->type    = $column['Type'];
-		$this->null    = $column['Null'];
-		$this->key     = $column['Key'];
-		$this->default = $column['Default'];
-		$this->extra   = $column['Extra'];
+		$this->field     = $column['Field'];
+		$this->type      = $column['Type'];
+		$this->collation = $column['Collation'];
+		$this->null      = $column['Null'];
+		$this->key       = $column['Key'];
+		$this->default   = $column['Default'];
+		$this->extra     = $column['Extra'];
 	}
 
 	/**

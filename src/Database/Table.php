@@ -13,6 +13,16 @@ use Zortje\MySQLKeeper\Database\Table\Index;
 class Table {
 
 	/**
+	 * @var string Table name
+	 */
+	private $name;
+
+	/**
+	 * @var string Table collation
+	 */
+	private $collation;
+
+	/**
 	 * @var Column[] Table columns
 	 */
 	private $columns;
@@ -23,12 +33,16 @@ class Table {
 	private $indices;
 
 	/**
-	 * @param Column[] $columns Table columns
-	 * @param Index[]  $indices Table indices
+	 * @param string   $name      Table name
+	 * @param string   $collation Table collation
+	 * @param Column[] $columns   Table columns
+	 * @param Index[]  $indices   Table indices
 	 */
-	public function __construct($columns, $indices) {
-		$this->columns = $columns;
-		$this->indices = $indices;
+	public function __construct($name, $collation, $columns, $indices) {
+		$this->name      = $name;
+		$this->collation = $collation;
+		$this->columns   = $columns;
+		$this->indices   = $indices;
 	}
 
 	/**

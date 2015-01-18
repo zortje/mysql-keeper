@@ -14,16 +14,17 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	public function testTableResult() {
 		$columns = [
 			new Table\Column([
-				'Field'   => 'id',
-				'Type'    => 'int(10) unsigned',
-				'Null'    => 'NO',
-				'Key'     => 'MUL',
-				'Default' => '',
-				'Extra'   => 'auto_increment'
+				'Field'     => 'id',
+				'Type'      => 'int(10) unsigned',
+				'Collation' => '',
+				'Null'      => 'NO',
+				'Key'       => 'MUL',
+				'Default'   => '',
+				'Extra'     => 'auto_increment'
 			])
 		];
 
-		$table = new Table($columns, []);
+		$table = new Table(null, null, $columns, []);
 
 		$result = $table->getResult();
 
@@ -34,19 +35,20 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	public function testResetOfIssues() {
 		$columns = [
 			new Table\Column([
-				'Field'   => 'id',
-				'Type'    => 'int(10) unsigned',
-				'Null'    => 'NO',
-				'Key'     => 'MUL',
-				'Default' => '',
-				'Extra'   => 'auto_increment'
+				'Field'     => 'id',
+				'Type'      => 'int(10) unsigned',
+				'Collation' => '',
+				'Null'      => 'NO',
+				'Key'       => 'MUL',
+				'Default'   => '',
+				'Extra'     => 'auto_increment'
 			])
 		];
 
 		/**
 		 * Check getResult once and save the result
 		 */
-		$table = new Table($columns, []);
+		$table = new Table(null, null, $columns, []);
 
 		$result = $table->getResult();
 
@@ -61,12 +63,13 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		 * Column
 		 */
 		$column = new Table\Column([
-			'Field'   => 'id',
-			'Type'    => 'int(10) unsigned',
-			'Null'    => 'NO',
-			'Key'     => 'MUL',
-			'Default' => '',
-			'Extra'   => 'auto_increment'
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'MUL',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
 		]);
 
 		$columnResult = $column->getResult();
@@ -74,7 +77,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null);
+		$table = new Table(null, null, null, null);
 
 		$tableResult = $table->checkColumns([$column]);
 
@@ -93,7 +96,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null);
+		$table = new Table(null, null, null, null);
 
 		$result = $table->checkDuplicateIndices($indices);
 
@@ -120,7 +123,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null);
+		$table = new Table(null, null, null, null);
 
 		$result = $table->checkDuplicateIndices($indices);
 
@@ -133,12 +136,13 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		 */
 		$columns = [
 			new Table\Column([
-				'Field'   => 'id',
-				'Type'    => 'int(10) unsigned',
-				'Null'    => 'NO',
-				'Key'     => 'PRI',
-				'Default' => '',
-				'Extra'   => 'auto_increment'
+				'Field'     => 'id',
+				'Type'      => 'int(10) unsigned',
+				'Collation' => '',
+				'Null'      => 'NO',
+				'Key'       => 'PRI',
+				'Default'   => '',
+				'Extra'     => 'auto_increment'
 			])
 		];
 
@@ -154,7 +158,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null);
+		$table = new Table(null, null, null, null);
 
 		$result = $table->checkRedundantIndicesOnPrimaryKey($columns, $indices);
 
