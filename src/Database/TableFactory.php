@@ -36,13 +36,14 @@ class TableFactory {
 		$indexRows = [];
 
 		foreach ($pdo->query("SHOW INDEX FROM `$tableName`;") as $row) {
-			$indexRows[$row['Key_name']][] = $row['Column_name'];
+			$indexRows[$row['Key_name']]['unique']        = $row['Non_unique'] === '1';
+			$indexRows[$row['Key_name']]['columnNames'][] = $row['Column_name'];
 		}
 
 		$indices = [];
 
-		foreach ($indexRows as $keyName => $columnNames) {
-			$index = new Index($keyName, $columnNames);
+		foreach ($indexRows as $keyName => $indexArray) {
+			$index = new Index($keyName, $indexArray['unique'], $indexArray['columnNames']);
 
 			$indices[] = $index;
 		}

@@ -15,16 +15,23 @@ class Index {
 	private $keyName;
 
 	/**
+	 * @var bool
+	 */
+	private $unique;
+
+	/**
 	 * @var string[]
 	 */
 	private $columns;
 
 	/**
 	 * @param string   $keyName Index key name
+	 * @param bool     $unique  Index unique
 	 * @param string[] $columns Index column names
 	 */
-	public function __construct($keyName, $columns) {
+	public function __construct($keyName, $unique, $columns) {
 		$this->keyName = $keyName;
+		$this->unique  = $unique;
 		$this->columns = $columns;
 	}
 
@@ -35,6 +42,15 @@ class Index {
 	 */
 	public function getKeyName() {
 		return $this->keyName;
+	}
+
+	/**
+	 * Is Index unique
+	 *
+	 * @return bool TRUE if unique, otherwise FALSE
+	 */
+	public function isUnique() {
+		return $this->unique;
 	}
 
 	/**

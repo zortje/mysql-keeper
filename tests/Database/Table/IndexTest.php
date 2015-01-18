@@ -12,44 +12,56 @@ use Zortje\MySQLKeeper\Database\Table\Index;
 class IndexTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetKeyName() {
-		$index = new Index('id', null);
+		$index = new Index('id', null, null);
 
 		$this->assertSame('id', $index->getKeyName());
 	}
 
+	public function testIsUnique() {
+		$index = new Index(null, true, null);
+
+		$this->assertTrue($index->isUnique());
+	}
+
+	public function testIsUniqueNot() {
+		$index = new Index(null, false, null);
+
+		$this->assertFalse($index->isUnique());
+	}
+
 	public function testGetColumns() {
-		$index = new Index(null, ['id']);
+		$index = new Index(null, null, ['id']);
 
 		$this->assertSame(['id'], $index->getColumns());
 	}
 
 	public function testIsDuplicate() {
-		$indexAlpha = new Index(null, ['id']);
-		$indexBeta  = new Index(null, ['id']);
+		$indexAlpha = new Index(null, null, ['id']);
+		$indexBeta  = new Index(null, null, ['id']);
 
 		$this->assertTrue($indexAlpha->isDuplicate($indexBeta));
 		$this->assertTrue($indexBeta->isDuplicate($indexAlpha));
 	}
 
 	public function testIsDuplicateNot() {
-		$indexAlpha = new Index(null, ['id']);
-		$indexBeta  = new Index(null, ['active']);
+		$indexAlpha = new Index(null, null, ['id']);
+		$indexBeta  = new Index(null, null, ['active']);
 
 		$this->assertFalse($indexAlpha->isDuplicate($indexBeta));
 		$this->assertFalse($indexBeta->isDuplicate($indexAlpha));
 	}
 
 	public function testIsDuplicateMultiple() {
-		$indexAlpha = new Index(null, ['id', 'active']);
-		$indexBeta  = new Index(null, ['id', 'active']);
+		$indexAlpha = new Index(null, null, ['id', 'active']);
+		$indexBeta  = new Index(null, null, ['id', 'active']);
 
 		$this->assertTrue($indexAlpha->isDuplicate($indexBeta));
 		$this->assertTrue($indexBeta->isDuplicate($indexAlpha));
 	}
 
 	public function testIsDuplicateDifferentOrdering() {
-		$indexAlpha = new Index(null, ['id', 'active']);
-		$indexBeta  = new Index(null, ['active', 'id']);
+		$indexAlpha = new Index(null, null, ['id', 'active']);
+		$indexBeta  = new Index(null, null, ['active', 'id']);
 
 		$this->assertFalse($indexAlpha->isDuplicate($indexBeta));
 		$this->assertFalse($indexBeta->isDuplicate($indexAlpha));

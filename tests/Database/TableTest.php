@@ -86,8 +86,8 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		 * Indices
 		 */
 		$indices = [
-			new Table\Index('id', ['id']),
-			new Table\Index('id2', ['id'])
+			new Table\Index('id', null, ['id']),
+			new Table\Index('id2', null, ['id'])
 		];
 
 		/**
@@ -113,8 +113,8 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		 * Indices
 		 */
 		$indices = [
-			new Table\Index('id', ['id']),
-			new Table\Index('active', ['active'])
+			new Table\Index('id', null, ['id']),
+			new Table\Index('active', null, ['active'])
 		];
 
 		/**
@@ -125,5 +125,46 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$result = $table->checkDuplicateIndices($indices);
 
 		$this->assertSame([], $result);
+	}
+
+	public function testCheckRedundantUniqueIndices() {
+		/**
+		 * Column
+		 */
+		$columns = [
+			new Table\Column([
+				'Field'   => 'id',
+				'Type'    => 'int(10) unsigned',
+				'Null'    => 'NO',
+				'Key'     => 'PRI',
+				'Default' => '',
+				'Extra'   => 'auto_increment'
+			])
+		];
+
+		/**
+		 * Indicies
+		 */
+		$indices = [
+			new Table\Index('PRIMARY', false, ['id']),
+			new Table\Index('id', true, ['id'])
+		];
+
+		/**
+		 * Table
+		 */
+		$table = new Table(null, null);
+
+		$result = $table->checkRedundantUniqueIndices($columns, $indices);
+
+		$expected = [
+			[
+				'type'        => 'index',
+				'key'         => 'id',
+				'description' => 'An unique index on the primary key is redundant'
+			]
+		];
+
+		$this->assertSame($expected, $result);
 	}
 }
