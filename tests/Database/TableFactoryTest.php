@@ -51,11 +51,7 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$table = TableFactory::create('nodes', $this->pdo);
 
-		echo "--testCreateNodes--";
-
 		$result = $table->getResult();
-
-		//exit;
 
 		$this->assertSame(2, count($result));
 
