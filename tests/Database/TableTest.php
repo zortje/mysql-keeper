@@ -146,8 +146,9 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		 * Indicies
 		 */
 		$indices = [
-			new Table\Index('PRIMARY', false, ['id']),
-			new Table\Index('id', true, ['id'])
+			new Table\Index('PRIMARY', true, ['id']),
+			new Table\Index('unique', true, ['id']),
+			new Table\Index('key', false, ['id'])
 		];
 
 		/**
@@ -160,8 +161,13 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$expected = [
 			[
 				'type'        => 'index',
-				'key'         => 'id',
+				'key'         => 'unique',
 				'description' => 'An unique index on the primary key column is redundant'
+			],
+			[
+				'type'        => 'index',
+				'key'         => 'key',
+				'description' => 'An key index on the primary key column is redundant'
 			]
 		];
 
