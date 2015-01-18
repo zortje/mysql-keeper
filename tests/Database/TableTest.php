@@ -55,4 +55,56 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		 */
 		$this->assertSameSize($result, $table->getResult());
 	}
+
+	public function testCheckColumns() {
+		/**
+		 * Column
+		 */
+		$column = new Table\Column([
+			'Field'   => 'id',
+			'Type'    => 'int(10) unsigned',
+			'Null'    => 'NO',
+			'Key'     => 'MUL',
+			'Default' => '',
+			'Extra'   => 'auto_increment'
+		]);
+
+		$columnResult = $column->getResult();
+
+		/**
+		 * Table
+		 */
+		$table = new Table(null, null);
+
+		$tableResult = $table->checkColumns([$column]);
+
+		$this->assertSame($columnResult, $tableResult);
+	}
+
+	public function testCheckIsDuplicate() {
+		/**
+		 * Indices
+		 */
+		$indices = [
+			new Table\Index('id', ['id']),
+			new Table\Index('id2', ['id'])
+		];
+
+		/**
+		 * Table
+		 */
+		$table = new Table(null, null);
+
+		$result = $table->checkDuplicateIndices($indices);
+
+		$expected = [
+			[
+				'type'        => 'index',
+				'key'         => 'id2',
+				'description' => 'Is duplicate of id'
+			]
+		];
+
+		$this->assertSame($expected, $result);
+	}
 }
