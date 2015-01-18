@@ -57,6 +57,26 @@ class Column {
 	}
 
 	/**
+	 * Get Column field
+	 *
+	 * @return string
+	 */
+	public function getField() {
+		return $this->field;
+	}
+
+	/**
+	 * Is Column primary key
+	 *
+	 * @return bool TRUE if primary key, otherwise FALSE
+	 */
+	public function isPrimaryKey() {
+		$isPrimaryKey = $this->key === 'PRI';
+
+		return $isPrimaryKey;
+	}
+
+	/**
 	 * Get result of column
 	 *
 	 * @return array Result

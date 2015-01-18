@@ -2,6 +2,7 @@
 
 namespace Zortje\MySQLKeeper\Tests\Database\Table;
 
+use Zortje\MySQLKeeper\Database\Table;
 use Zortje\MySQLKeeper\Database\Table\Column;
 
 /**
@@ -10,6 +11,51 @@ use Zortje\MySQLKeeper\Database\Table\Column;
  * @package Zortje\MySQLKeeper\Tests\Database\Table
  */
 class ColumnTest extends \PHPUnit_Framework_TestCase {
+
+	public function testGetField() {
+		$row = [
+			'Field'   => 'id',
+			'Type'    => 'int(10) unsigned',
+			'Null'    => 'NO',
+			'Key'     => 'PRI',
+			'Default' => '',
+			'Extra'   => 'auto_increment'
+		];
+
+		$column = new Column($row);
+
+		$this->assertSame('id', $column->getField());
+	}
+
+	public function testIsPrimaryKey() {
+		$row = [
+			'Field'   => 'id',
+			'Type'    => 'int(10) unsigned',
+			'Null'    => 'NO',
+			'Key'     => 'PRI',
+			'Default' => '',
+			'Extra'   => 'auto_increment'
+		];
+
+		$column = new Column($row);
+
+		$this->assertTrue($column->isPrimaryKey());
+	}
+
+	public function testIsPrimaryKeyNot() {
+		$row = [
+			'Field'   => 'modified',
+			'Type'    => 'datetime',
+			'Null'    => 'NO',
+			'Key'     => '',
+			'Default' => '',
+			'Extra'   => ''
+		];
+
+		$column = new Column($row);
+
+		$this->assertFalse($column->isPrimaryKey());
+	}
 
 	public function testIncorrectAutoIncrementKey() {
 		$row = [
