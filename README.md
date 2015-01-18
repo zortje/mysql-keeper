@@ -88,13 +88,14 @@ The `$tableResult` array will look something like this.
 
 Detects the following issues
 
-* A column with auto_increment should have a primary key
 * Duplicate indices
+* Missing primary key on auto_increment column
+* Redundant unique index on primary key
+* Redundant key index on primary key
 
 #### Checklist
 
 * Issues
- * Redundant unique index (like on primary)
  * Inconsistent usage of character sets (table and fields)
 * optimizations
- * Numeric fields should not be signed if no negative values are stored
+ * Numeric fields should be unsigned if no negative values are present in the table
