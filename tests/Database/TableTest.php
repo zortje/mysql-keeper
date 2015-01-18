@@ -107,4 +107,23 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame($expected, $result);
 	}
+
+	public function testCheckIsDuplicateEmpty() {
+		/**
+		 * Indices
+		 */
+		$indices = [
+			new Table\Index('id', ['id']),
+			new Table\Index('active', ['active'])
+		];
+
+		/**
+		 * Table
+		 */
+		$table = new Table(null, null);
+
+		$result = $table->checkDuplicateIndices($indices);
+
+		$this->assertSame([], $result);
+	}
 }
