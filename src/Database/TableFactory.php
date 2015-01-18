@@ -36,7 +36,7 @@ class TableFactory {
 		$indexRows = [];
 
 		foreach ($pdo->query("SHOW INDEX FROM `$tableName`;") as $row) {
-			$indexRows[$row['Key_name']]['unique']        = $row['Non_unique'] === '1';
+			$indexRows[$row['Key_name']]['unique']        = $row['Non_unique'] === '0';
 			$indexRows[$row['Key_name']]['columnNames'][] = $row['Column_name'];
 		}
 

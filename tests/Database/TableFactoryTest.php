@@ -21,7 +21,7 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 	}
 
-	public function testCreate() {
+	public function testCreateUsers() {
 		$this->pdo->query(file_get_contents('tests/Database/files/users.sql'));
 
 		$table = TableFactory::create('users', $this->pdo);
@@ -42,6 +42,36 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 				'description' => 'Is duplicate of id_active'
 			]
 		];
+
+		$this->assertSame($expected, $result);
+	}
+
+	public function testCreateNodes() {
+		$this->pdo->query(file_get_contents('tests/Database/files/nodes.sql'));
+
+		$table = TableFactory::create('nodes', $this->pdo);
+
+		echo "--testCreateNodes--";
+
+		$result = $table->getResult();
+
+		//exit;
+
+		$this->assertSame(2, count($result));
+
+		$expected = [
+			[
+				'type'        => 'index',
+				'key'         => 'unique',
+				'description' => 'An unique index on the primary key column is redundant'
+			],
+			[
+				'type'        => 'index',
+				'key'         => 'key',
+				'description' => 'An key index on the primary key column is redundant'
+			]
+		];
+
 		$this->assertSame($expected, $result);
 	}
 }
