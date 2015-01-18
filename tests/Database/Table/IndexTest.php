@@ -17,6 +17,18 @@ class IndexTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('id', $index->getKeyName());
 	}
 
+	public function testIsPrimaryKey() {
+		$index = new Index('PRIMARY', null, null);
+
+		$this->assertTrue($index->isPrimaryKey());
+	}
+
+	public function testIsPrimaryKeyNot() {
+		$index = new Index('id', null, null);
+
+		$this->assertFalse($index->isPrimaryKey());
+	}
+
 	public function testIsUnique() {
 		$index = new Index(null, true, null);
 
@@ -62,6 +74,14 @@ class IndexTest extends \PHPUnit_Framework_TestCase {
 	public function testIsDuplicateDifferentOrdering() {
 		$indexAlpha = new Index(null, null, ['id', 'active']);
 		$indexBeta  = new Index(null, null, ['active', 'id']);
+
+		$this->assertFalse($indexAlpha->isDuplicate($indexBeta));
+		$this->assertFalse($indexBeta->isDuplicate($indexAlpha));
+	}
+
+	public function testIsDuplicateUnique() {
+		$indexAlpha = new Index('PRIMARY', true, ['id']);
+		$indexBeta  = new Index(null, true, ['id']);
 
 		$this->assertFalse($indexAlpha->isDuplicate($indexBeta));
 		$this->assertFalse($indexBeta->isDuplicate($indexAlpha));

@@ -45,6 +45,17 @@ class Index {
 	}
 
 	/**
+	 * Is Index primary key
+	 *
+	 * @return bool TRUE if primary key, otherwise FALSE
+	 */
+	public function isPrimaryKey() {
+		$isPrimaryKey = $this->getKeyName() === 'PRIMARY';
+
+		return $isPrimaryKey;
+	}
+
+	/**
 	 * Is Index unique
 	 *
 	 * @return bool TRUE if unique, otherwise FALSE
@@ -70,7 +81,24 @@ class Index {
 	 * @return bool TRUE if duplicate, otherwise FALSE
 	 */
 	public function isDuplicate(Index $index) {
+		/**
+		 * Check if columns are the same
+		 */
 		$duplicate = $this->getColumns() === $index->getColumns();
+
+		/**
+		 * If indices have different unique status they cant be duplicates
+		 */
+		if ($this->isUnique() !== $index->isUnique()) {
+			$duplicate = false;
+		}
+
+		/**
+		 * If one of the indicies is the primary key they cant be duplicates
+		 */
+		if ($this->isPrimaryKey() === true || $index->isPrimaryKey() === true) {
+			$duplicate = false;
+		}
 
 		return $duplicate;
 	}
