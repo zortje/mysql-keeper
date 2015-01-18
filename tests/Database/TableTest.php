@@ -127,7 +127,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame([], $result);
 	}
 
-	public function testCheckRedundantUniqueIndices() {
+	public function testCheckRedundantIndicesOnPrimaryKey() {
 		/**
 		 * Column
 		 */
@@ -155,13 +155,13 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		 */
 		$table = new Table(null, null);
 
-		$result = $table->checkRedundantUniqueIndices($columns, $indices);
+		$result = $table->checkRedundantIndicesOnPrimaryKey($columns, $indices);
 
 		$expected = [
 			[
 				'type'        => 'index',
 				'key'         => 'id',
-				'description' => 'An unique index on the primary key is redundant'
+				'description' => 'An unique index on the primary key column is redundant'
 			]
 		];
 

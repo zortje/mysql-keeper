@@ -48,6 +48,7 @@ class Table {
 		 */
 		$result = array_merge($result, $this->checkColumns($this->columns));
 		$result = array_merge($result, $this->checkDuplicateIndices($this->indices));
+		$result = array_merge($result, $this->checkRedundantIndicesOnPrimaryKey($this->columns, $this->indices));
 
 		return $result;
 	}
@@ -107,14 +108,14 @@ class Table {
 	}
 
 	/**
-	 * Check for redundant unique indices
+	 * Check for redundant indices on primary key column
 	 *
 	 * @param Column[] $columns Table columns
 	 * @param Index[]  $indices Table indices
 	 *
 	 * @return array Result
 	 */
-	public function checkRedundantUniqueIndices($columns, $indices) {
+	public function checkRedundantIndicesOnPrimaryKey($columns, $indices) {
 		$result = [];
 
 		foreach ($columns as $column) {
@@ -124,19 +125,24 @@ class Table {
 			if ($column->isPrimaryKey() === true) {
 				foreach ($indices as $index) {
 					/**
+					 * Skip the primary key index
+					 */
+					if ($index->isPrimaryKey() === true) {
+						continue;
+					}
+
+					/**
 					 * Check indices with just our primary key column
 					 */
 					if ($index->getColumns() === [$column->getField()]) {
 						/**
 						 * Check if index is unique
 						 */
-						if ($index->isUnique() === true) {
-							$result[] = [
-								'type'        => 'index',
-								'key'         => $index->getKeyName(),
-								'description' => 'An unique index on the primary key is redundant'
-							];
-						}
+						$result[] = [
+							'type'        => 'index',
+							'key'         => $index->getKeyName(),
+							'description' => sprintf('An %s index on the primary key column is redundant', $index->isUnique() === true ? 'unique' : 'key')
+						];
 					}
 				}
 			}
