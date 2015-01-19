@@ -39,8 +39,6 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('users', $table->getName());
 		$this->assertSame('utf8_unicode_ci', $table->getCollation());
 
-		$this->assertSame(2, count($result));
-
 		$expected = [
 			[
 				'type'        => 'column',
@@ -51,6 +49,11 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 				'type'        => 'index',
 				'key'         => 'id_active2',
 				'description' => 'Is duplicate of id_active'
+			],
+			[
+				'type'        => 'column',
+				'key'         => 'username',
+				'description' => 'Column is not using same collation as table'
 			]
 		];
 
@@ -66,8 +69,6 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame('nodes', $table->getName());
 		$this->assertSame('utf8_unicode_ci', $table->getCollation());
-
-		$this->assertSame(2, count($result));
 
 		$expected = [
 			[
