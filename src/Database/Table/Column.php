@@ -65,10 +65,19 @@ class Column {
 	/**
 	 * Get Column field
 	 *
-	 * @return string
+	 * @return string Column field
 	 */
 	public function getField() {
 		return $this->field;
+	}
+
+	/**
+	 * Get Column collation
+	 *
+	 * @return string Column collation
+	 */
+	public function getCollation() {
+		return $this->collation;
 	}
 
 	/**

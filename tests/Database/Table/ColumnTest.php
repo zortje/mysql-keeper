@@ -15,17 +15,33 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 	public function testGetField() {
 		$row = [
 			'Field'     => 'id',
-			'Type'      => 'int(10) unsigned',
-			'Collation' => '',
-			'Null'      => 'NO',
-			'Key'       => 'PRI',
-			'Default'   => '',
-			'Extra'     => 'auto_increment'
+			'Type'      => null,
+			'Collation' => null,
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
 		];
 
 		$column = new Column($row);
 
 		$this->assertSame('id', $column->getField());
+	}
+
+	public function testGetCollation() {
+		$row = [
+			'Field'     => null,
+			'Type'      => null,
+			'Collation' => 'utf8_unicode_ci',
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		];
+
+		$column = new Column($row);
+
+		$this->assertSame('utf8_unicode_ci', $column->getCollation());
 	}
 
 	public function testIsPrimaryKey() {
