@@ -189,4 +189,49 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame($expected, $result);
 	}
+
+	public function testCheckCollationMismatchBetweenTableAndColumns() {
+		$columns = [
+			new Table\Column([
+				'Field'     => 'username',
+				'Type'      => null,
+				'Collation' => 'utf8_danish_ci',
+				'Null'      => null,
+				'Key'       => null,
+				'Default'   => null,
+				'Extra'     => null
+			]),
+			new Table\Column([
+				'Field'     => 'fullname',
+				'Type'      => null,
+				'Collation' => 'utf8_danish_ci',
+				'Null'      => null,
+				'Key'       => null,
+				'Default'   => null,
+				'Extra'     => null
+			])
+		];
+
+		/**
+		 * Table
+		 */
+		$table = new Table(null, 'utf8_unicode_ci', null, null);
+
+		$result = $table->checkCollationMismatchBetweenTableAndColumns($columns);
+
+		$expected = [
+			[
+				'type'        => 'column',
+				'key'         => 'username',
+				'description' => 'Column is not using same collation as table'
+			],
+			[
+				'type'        => 'column',
+				'key'         => 'fullname',
+				'description' => 'Column is not using same collation as table'
+			]
+		];
+
+		$this->assertSame($expected, $result);
+	}
 }

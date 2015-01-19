@@ -78,10 +78,12 @@ class Table {
 		 * Go though columns and get result
 		 * Find duplicate indices
 		 * Check redundant indices on primary key
+		 * Check collation mismatch between table and columns
 		 */
 		$result = array_merge($result, $this->checkColumns($this->columns));
 		$result = array_merge($result, $this->checkDuplicateIndices($this->indices));
 		$result = array_merge($result, $this->checkRedundantIndicesOnPrimaryKey($this->columns, $this->indices));
+		$result = array_merge($result, $this->checkCollationMismatchBetweenTableAndColumns($this->columns));
 
 		return $result;
 	}
@@ -182,5 +184,27 @@ class Table {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * @param Column[] $columns Table columns
+	 *
+	 * @return array Result
+	 */
+	public function checkCollationMismatchBetweenTableAndColumns($columns) {
+		$result = [];
+
+		foreach ($columns as $column) {
+			if ($column->getCollation() !== $this->getCollation()) {
+				$result[] = [
+					'type'        => 'column',
+					'key'         => $column->getField(),
+					'description' => 'Column is not using same collation as table'
+				];
+			}
+		}
+
+		return $result;
+
 	}
 }
