@@ -28,6 +28,38 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('id', $column->getField());
 	}
 
+	public function testGetFieldNull() {
+		$row = [
+			'Field'     => null,
+			'Type'      => null,
+			'Collation' => null,
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		];
+
+		$column = new Column($row);
+
+		$this->assertSame(null, $column->getField());
+	}
+
+	public function testGetFieldEmpty() {
+		$row = [
+			'Field'     => '',
+			'Type'      => null,
+			'Collation' => null,
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		];
+
+		$column = new Column($row);
+
+		$this->assertSame('', $column->getField());
+	}
+
 	public function testGetCollation() {
 		$row = [
 			'Field'     => null,
@@ -42,6 +74,86 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$column = new Column($row);
 
 		$this->assertSame('utf8_unicode_ci', $column->getCollation());
+	}
+
+	public function testGetCollationNull() {
+		$row = [
+			'Field'     => null,
+			'Type'      => null,
+			'Collation' => null,
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		];
+
+		$column = new Column($row);
+
+		$this->assertSame(null, $column->getCollation());
+	}
+
+	public function testGetCollationEmpty() {
+		$row = [
+			'Field'     => null,
+			'Type'      => null,
+			'Collation' => '',
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		];
+
+		$column = new Column($row);
+
+		$this->assertSame('', $column->getCollation());
+	}
+
+	public function hasCollation() {
+		$row = [
+			'Field'     => null,
+			'Type'      => null,
+			'Collation' => 'utf8_unicode_ci',
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		];
+
+		$column = new Column($row);
+
+		$this->assertTrue($column->hasCollation());
+	}
+
+	public function hasCollationNull() {
+		$row = [
+			'Field'     => null,
+			'Type'      => null,
+			'Collation' => null,
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		];
+
+		$column = new Column($row);
+
+		$this->assertFalse($column->hasCollation());
+	}
+
+	public function hasCollationEmpty() {
+		$row = [
+			'Field'     => null,
+			'Type'      => null,
+			'Collation' => '',
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		];
+
+		$column = new Column($row);
+
+		$this->assertFalse($column->hasCollation());
 	}
 
 	public function testIsPrimaryKey() {

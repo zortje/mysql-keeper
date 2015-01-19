@@ -81,6 +81,15 @@ class Column {
 	}
 
 	/**
+	 * Get has Column collation
+	 *
+	 * @return bool TRUE if Column has collation, otherwise FALSE
+	 */
+	public function hasCollation() {
+		return strlen($this->getCollation()) > 0;
+	}
+
+	/**
 	 * Is Column primary key
 	 *
 	 * @return bool TRUE if primary key, otherwise FALSE
