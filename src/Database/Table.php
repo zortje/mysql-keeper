@@ -46,6 +46,24 @@ class Table {
 	}
 
 	/**
+	 * Get Table name
+	 *
+	 * @return string Table name
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+	/**
+	 * Get Table collation
+	 *
+	 * @return string Table collation
+	 */
+	public function getCollation() {
+		return $this->collation;
+	}
+
+	/**
 	 * Get result of table
 	 *
 	 * @return array Result

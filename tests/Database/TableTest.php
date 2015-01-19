@@ -11,6 +11,18 @@ use Zortje\MySQLKeeper\Database\Table;
  */
 class TableTest extends \PHPUnit_Framework_TestCase {
 
+	public function testGetName() {
+		$table = new Table('users', null, null, null);
+
+		$this->assertSame('users', $table->getName());
+	}
+
+	public function testGetCollation() {
+		$table = new Table(null, 'utf8_unicode_ci', null, null);
+
+		$this->assertSame('utf8_unicode_ci', $table->getCollation());
+	}
+
 	public function testTableResult() {
 		$columns = [
 			new Table\Column([
