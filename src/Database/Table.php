@@ -195,16 +195,17 @@ class Table {
 		$result = [];
 
 		foreach ($columns as $column) {
-			if ($column->getCollation() !== $this->getCollation()) {
-				$result[] = [
-					'type'        => 'column',
-					'key'         => $column->getField(),
-					'description' => 'Column is not using same collation as table'
-				];
+			if ($column->hasCollation() === true) {
+				if ($column->getCollation() !== $this->getCollation()) {
+					$result[] = [
+						'type'        => 'column',
+						'key'         => $column->getField(),
+						'description' => 'Column is not using same collation as table'
+					];
+				}
 			}
 		}
 
 		return $result;
-
 	}
 }
