@@ -21,12 +21,23 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage Table table_not_found was not found
+	 */
+	public function testCreateTableNotFound() {
+		TableFactory::create('table_not_found', $this->pdo);
+	}
+
 	public function testCreateUsers() {
 		$this->pdo->query(file_get_contents('tests/Database/files/users.sql'));
 
 		$table = TableFactory::create('users', $this->pdo);
 
 		$result = $table->getResult();
+
+		$this->assertSame('users', $table->getName());
+		$this->assertSame('utf8_unicode_ci', $table->getCollation());
 
 		$this->assertSame(2, count($result));
 
@@ -52,6 +63,9 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$table = TableFactory::create('nodes', $this->pdo);
 
 		$result = $table->getResult();
+
+		$this->assertSame('nodes', $table->getName());
+		$this->assertSame('utf8_unicode_ci', $table->getCollation());
 
 		$this->assertSame(2, count($result));
 
