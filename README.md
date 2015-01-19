@@ -92,10 +92,4 @@ Detects the following issues
 * Missing primary key on auto_increment column
 * Redundant unique index on primary key
 * Redundant key index on primary key
-
-#### Checklist
-
-* Issues
- * Inconsistent usage of character sets (table and fields)
-* optimizations
- * Numeric fields should be unsigned if no negative values are present in the table
+* Inconsistent usage of collation between table and columns
