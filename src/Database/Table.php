@@ -77,6 +77,7 @@ class Table {
 		/**
 		 * Go though columns and get result
 		 * Find duplicate indices
+		 * Check redundant indices on primary key
 		 */
 		$result = array_merge($result, $this->checkColumns($this->columns));
 		$result = array_merge($result, $this->checkDuplicateIndices($this->indices));
