@@ -202,9 +202,18 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 				'Extra'     => null
 			]),
 			new Table\Column([
-				'Field'     => 'fullname',
+				'Field'     => 'first_name',
 				'Type'      => null,
 				'Collation' => 'utf8_danish_ci',
+				'Null'      => null,
+				'Key'       => null,
+				'Default'   => null,
+				'Extra'     => null
+			]),
+			new Table\Column([
+				'Field'     => 'last_name',
+				'Type'      => null,
+				'Collation' => 'utf8_unicode_ci',
 				'Null'      => null,
 				'Key'       => null,
 				'Default'   => null,
@@ -227,7 +236,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 			],
 			[
 				'type'        => 'column',
-				'key'         => 'fullname',
+				'key'         => 'first_name',
 				'description' => 'Column is not using same collation as table'
 			]
 		];
