@@ -21,6 +21,14 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage Table table_not_found was not found
+	 */
+	public function testCreateTableNotFound() {
+		TableFactory::create('table_not_found', $this->pdo);
+	}
+
 	public function testCreateUsers() {
 		$this->pdo->query(file_get_contents('tests/Database/files/users.sql'));
 
@@ -28,7 +36,8 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $table->getResult();
 
-		$this->assertSame(2, count($result));
+		$this->assertSame('users', $table->getName());
+		$this->assertSame('utf8_unicode_ci', $table->getCollation());
 
 		$expected = [
 			[
@@ -40,6 +49,11 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 				'type'        => 'index',
 				'key'         => 'id_active2',
 				'description' => 'Is duplicate of id_active'
+			],
+			[
+				'type'        => 'column',
+				'key'         => 'username',
+				'description' => 'Column is not using same collation as table'
 			]
 		];
 
@@ -53,7 +67,8 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $table->getResult();
 
-		$this->assertSame(2, count($result));
+		$this->assertSame('nodes', $table->getName());
+		$this->assertSame('utf8_unicode_ci', $table->getCollation());
 
 		$expected = [
 			[

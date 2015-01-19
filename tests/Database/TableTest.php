@@ -11,19 +11,32 @@ use Zortje\MySQLKeeper\Database\Table;
  */
 class TableTest extends \PHPUnit_Framework_TestCase {
 
+	public function testGetName() {
+		$table = new Table('users', null, null, null);
+
+		$this->assertSame('users', $table->getName());
+	}
+
+	public function testGetCollation() {
+		$table = new Table(null, 'utf8_unicode_ci', null, null);
+
+		$this->assertSame('utf8_unicode_ci', $table->getCollation());
+	}
+
 	public function testTableResult() {
 		$columns = [
 			new Table\Column([
-				'Field'   => 'id',
-				'Type'    => 'int(10) unsigned',
-				'Null'    => 'NO',
-				'Key'     => 'MUL',
-				'Default' => '',
-				'Extra'   => 'auto_increment'
+				'Field'     => 'id',
+				'Type'      => 'int(10) unsigned',
+				'Collation' => '',
+				'Null'      => 'NO',
+				'Key'       => 'MUL',
+				'Default'   => '',
+				'Extra'     => 'auto_increment'
 			])
 		];
 
-		$table = new Table($columns, []);
+		$table = new Table(null, null, $columns, []);
 
 		$result = $table->getResult();
 
@@ -34,19 +47,20 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	public function testResetOfIssues() {
 		$columns = [
 			new Table\Column([
-				'Field'   => 'id',
-				'Type'    => 'int(10) unsigned',
-				'Null'    => 'NO',
-				'Key'     => 'MUL',
-				'Default' => '',
-				'Extra'   => 'auto_increment'
+				'Field'     => 'id',
+				'Type'      => 'int(10) unsigned',
+				'Collation' => '',
+				'Null'      => 'NO',
+				'Key'       => 'MUL',
+				'Default'   => '',
+				'Extra'     => 'auto_increment'
 			])
 		];
 
 		/**
 		 * Check getResult once and save the result
 		 */
-		$table = new Table($columns, []);
+		$table = new Table(null, null, $columns, []);
 
 		$result = $table->getResult();
 
@@ -61,12 +75,13 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		 * Column
 		 */
 		$column = new Table\Column([
-			'Field'   => 'id',
-			'Type'    => 'int(10) unsigned',
-			'Null'    => 'NO',
-			'Key'     => 'MUL',
-			'Default' => '',
-			'Extra'   => 'auto_increment'
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'MUL',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
 		]);
 
 		$columnResult = $column->getResult();
@@ -74,7 +89,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null);
+		$table = new Table(null, null, null, null);
 
 		$tableResult = $table->checkColumns([$column]);
 
@@ -93,7 +108,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null);
+		$table = new Table(null, null, null, null);
 
 		$result = $table->checkDuplicateIndices($indices);
 
@@ -120,7 +135,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null);
+		$table = new Table(null, null, null, null);
 
 		$result = $table->checkDuplicateIndices($indices);
 
@@ -133,12 +148,13 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		 */
 		$columns = [
 			new Table\Column([
-				'Field'   => 'id',
-				'Type'    => 'int(10) unsigned',
-				'Null'    => 'NO',
-				'Key'     => 'PRI',
-				'Default' => '',
-				'Extra'   => 'auto_increment'
+				'Field'     => 'id',
+				'Type'      => 'int(10) unsigned',
+				'Collation' => '',
+				'Null'      => 'NO',
+				'Key'       => 'PRI',
+				'Default'   => '',
+				'Extra'     => 'auto_increment'
 			])
 		];
 
@@ -154,7 +170,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null);
+		$table = new Table(null, null, null, null);
 
 		$result = $table->checkRedundantIndicesOnPrimaryKey($columns, $indices);
 
@@ -168,6 +184,60 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 				'type'        => 'index',
 				'key'         => 'key',
 				'description' => 'An key index on the primary key column is redundant'
+			]
+		];
+
+		$this->assertSame($expected, $result);
+	}
+
+	public function testCheckCollationMismatchBetweenTableAndColumns() {
+		$columns = [
+			new Table\Column([
+				'Field'     => 'username',
+				'Type'      => null,
+				'Collation' => 'utf8_danish_ci',
+				'Null'      => null,
+				'Key'       => null,
+				'Default'   => null,
+				'Extra'     => null
+			]),
+			new Table\Column([
+				'Field'     => 'first_name',
+				'Type'      => null,
+				'Collation' => 'utf8_danish_ci',
+				'Null'      => null,
+				'Key'       => null,
+				'Default'   => null,
+				'Extra'     => null
+			]),
+			new Table\Column([
+				'Field'     => 'last_name',
+				'Type'      => null,
+				'Collation' => 'utf8_unicode_ci',
+				'Null'      => null,
+				'Key'       => null,
+				'Default'   => null,
+				'Extra'     => null
+			])
+		];
+
+		/**
+		 * Table
+		 */
+		$table = new Table(null, 'utf8_unicode_ci', null, null);
+
+		$result = $table->checkCollationMismatchBetweenTableAndColumns($columns);
+
+		$expected = [
+			[
+				'type'        => 'column',
+				'key'         => 'username',
+				'description' => 'Column is not using same collation as table'
+			],
+			[
+				'type'        => 'column',
+				'key'         => 'first_name',
+				'description' => 'Column is not using same collation as table'
 			]
 		];
 

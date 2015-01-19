@@ -22,6 +22,11 @@ class Column {
 	/**
 	 * @var string
 	 */
+	private $collation;
+
+	/**
+	 * @var string
+	 */
 	private $null;
 
 	/**
@@ -48,21 +53,40 @@ class Column {
 	 * @param array $column Column information
 	 */
 	public function __construct($column) {
-		$this->field   = $column['Field'];
-		$this->type    = $column['Type'];
-		$this->null    = $column['Null'];
-		$this->key     = $column['Key'];
-		$this->default = $column['Default'];
-		$this->extra   = $column['Extra'];
+		$this->field     = $column['Field'];
+		$this->type      = $column['Type'];
+		$this->collation = $column['Collation'];
+		$this->null      = $column['Null'];
+		$this->key       = $column['Key'];
+		$this->default   = $column['Default'];
+		$this->extra     = $column['Extra'];
 	}
 
 	/**
 	 * Get Column field
 	 *
-	 * @return string
+	 * @return string Column field
 	 */
 	public function getField() {
 		return $this->field;
+	}
+
+	/**
+	 * Get Column collation
+	 *
+	 * @return string Column collation
+	 */
+	public function getCollation() {
+		return $this->collation;
+	}
+
+	/**
+	 * Get has Column collation
+	 *
+	 * @return bool TRUE if Column has collation, otherwise FALSE
+	 */
+	public function hasCollation() {
+		return strlen($this->getCollation()) > 0;
 	}
 
 	/**
@@ -91,10 +115,10 @@ class Column {
 		 * auto_increment checks
 		 */
 		if ($this->extra === 'auto_increment') {
-			if ($this->key !== 'PRI') {
+			if ($this->isPrimaryKey() === false) {
 				$this->result[] = [
 					'type'        => 'column',
-					'field'       => $this->field,
+					'field'       => $this->getField(),
 					'description' => 'Set as auto_increment but has no primary key'
 				];
 			}

@@ -20,11 +20,22 @@ class TableFactory {
 	 */
 	public static function create($tableName, \PDO $pdo) {
 		/**
+		 * Table
+		 */
+		$result = $pdo->query("SHOW TABLE STATUS LIKE '$tableName';");
+
+		if ($result->rowCount() !== 1) {
+			throw new \InvalidArgumentException(sprintf('Table %s was not found', $tableName));
+		}
+
+		$tableRow = $result->fetch();
+
+		/**
 		 * Columns
 		 */
 		$columns = [];
 
-		foreach ($pdo->query("SHOW COLUMNS FROM `$tableName`;") as $row) {
+		foreach ($pdo->query("SHOW FULL COLUMNS FROM `$tableName`;") as $row) {
 			$column = new Column($row);
 
 			$columns[] = $column;
@@ -51,7 +62,7 @@ class TableFactory {
 		/**
 		 * Initialization
 		 */
-		$table = new Table($columns, $indices);
+		$table = new Table($tableName, $tableRow['Collation'], $columns, $indices);
 
 		return $table;
 	}
