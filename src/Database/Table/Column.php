@@ -97,10 +97,10 @@ class Column {
 		 * auto_increment checks
 		 */
 		if ($this->extra === 'auto_increment') {
-			if ($this->key !== 'PRI') {
+			if ($this->isPrimaryKey() === false) {
 				$this->result[] = [
 					'type'        => 'column',
-					'field'       => $this->field,
+					'field'       => $this->getField(),
 					'description' => 'Set as auto_increment but has no primary key'
 				];
 			}
