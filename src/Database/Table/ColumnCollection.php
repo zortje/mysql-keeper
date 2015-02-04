@@ -43,7 +43,7 @@ class ColumnCollection implements \Iterator, \Countable {
 	/**
 	 * Return the current column
 	 *
-	 * @return Column Table column
+	 * @return false|Column Table column
 	 */
 	public function current() {
 		$column = current($this->columns);
@@ -73,7 +73,7 @@ class ColumnCollection implements \Iterator, \Countable {
 	 * Rewind the collection to the first column
 	 */
 	public function rewind() {
-		if (!empty($this->columns)) {
+		if (is_array($this->columns) === true) {
 			reset($this->columns);
 		}
 	}
@@ -84,7 +84,7 @@ class ColumnCollection implements \Iterator, \Countable {
 	 * @return bool Returns true on success or false on failure.
 	 */
 	public function valid() {
-		if (!empty($this->columns)) {
+		if (is_array($this->columns) === true) {
 			$key   = key($this->columns);
 			$valid = ($key !== null && $key !== false);
 		} else {
