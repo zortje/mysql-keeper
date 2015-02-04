@@ -3,6 +3,7 @@
 namespace Zortje\MySQLKeeper\Database;
 
 use Zortje\MySQLKeeper\Database\Table\Column;
+use Zortje\MySQLKeeper\Database\Table\ColumnCollection;
 use Zortje\MySQLKeeper\Database\Table\Index;
 
 /**
@@ -33,12 +34,12 @@ class TableFactory {
 		/**
 		 * Columns
 		 */
-		$columns = [];
+		$columns = new ColumnCollection();
 
 		foreach ($pdo->query("SHOW FULL COLUMNS FROM `$tableName`;") as $row) {
 			$column = new Column($row);
 
-			$columns[] = $column;
+			$columns->add($column);
 		}
 
 		/**

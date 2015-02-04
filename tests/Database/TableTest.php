@@ -24,17 +24,18 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testTableResult() {
-		$columns = [
-			new Table\Column([
-				'Field'     => 'id',
-				'Type'      => 'int(10) unsigned',
-				'Collation' => '',
-				'Null'      => 'NO',
-				'Key'       => 'MUL',
-				'Default'   => '',
-				'Extra'     => 'auto_increment'
-			])
-		];
+		$column = new Table\Column([
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'MUL',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
+		]);
+
+		$columns = new Table\ColumnCollection();
+		$columns->add($column);
 
 		$table = new Table(null, null, $columns, []);
 
@@ -45,17 +46,18 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testResetOfIssues() {
-		$columns = [
-			new Table\Column([
-				'Field'     => 'id',
-				'Type'      => 'int(10) unsigned',
-				'Collation' => '',
-				'Null'      => 'NO',
-				'Key'       => 'MUL',
-				'Default'   => '',
-				'Extra'     => 'auto_increment'
-			])
-		];
+		$column = new Table\Column([
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'MUL',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
+		]);
+
+		$columns = new Table\ColumnCollection();
+		$columns->add($column);
 
 		/**
 		 * Check getResult once and save the result
@@ -86,12 +88,15 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 
 		$columnResult = $column->getResult();
 
+		$columns = new Table\ColumnCollection();
+		$columns->add($column);
+
 		/**
 		 * Table
 		 */
 		$table = new Table(null, null, null, null);
 
-		$tableResult = $table->checkColumns([$column]);
+		$tableResult = $table->checkColumns($columns);
 
 		$this->assertSame($columnResult, $tableResult);
 	}
@@ -146,17 +151,18 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Column
 		 */
-		$columns = [
-			new Table\Column([
-				'Field'     => 'id',
-				'Type'      => 'int(10) unsigned',
-				'Collation' => '',
-				'Null'      => 'NO',
-				'Key'       => 'PRI',
-				'Default'   => '',
-				'Extra'     => 'auto_increment'
-			])
-		];
+		$column = new Table\Column([
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'PRI',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
+		]);
+
+		$columns = new Table\ColumnCollection();
+		$columns->add($column);
 
 		/**
 		 * Indicies
@@ -191,35 +197,37 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCheckCollationMismatchBetweenTableAndColumns() {
-		$columns = [
-			new Table\Column([
-				'Field'     => 'username',
-				'Type'      => null,
-				'Collation' => 'utf8_danish_ci',
-				'Null'      => null,
-				'Key'       => null,
-				'Default'   => null,
-				'Extra'     => null
-			]),
-			new Table\Column([
-				'Field'     => 'first_name',
-				'Type'      => null,
-				'Collation' => 'utf8_danish_ci',
-				'Null'      => null,
-				'Key'       => null,
-				'Default'   => null,
-				'Extra'     => null
-			]),
-			new Table\Column([
-				'Field'     => 'last_name',
-				'Type'      => null,
-				'Collation' => 'utf8_unicode_ci',
-				'Null'      => null,
-				'Key'       => null,
-				'Default'   => null,
-				'Extra'     => null
-			])
-		];
+		$columns = new Table\ColumnCollection();
+
+		$columns->add(new Table\Column([
+			'Field'     => 'username',
+			'Type'      => null,
+			'Collation' => 'utf8_danish_ci',
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		]));
+
+		$columns->add(new Table\Column([
+			'Field'     => 'first_name',
+			'Type'      => null,
+			'Collation' => 'utf8_danish_ci',
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		]));
+
+		$columns->add(new Table\Column([
+			'Field'     => 'last_name',
+			'Type'      => null,
+			'Collation' => 'utf8_unicode_ci',
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		]));
 
 		/**
 		 * Table

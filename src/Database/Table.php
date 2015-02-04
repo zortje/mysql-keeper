@@ -2,7 +2,7 @@
 
 namespace Zortje\MySQLKeeper\Database;
 
-use Zortje\MySQLKeeper\Database\Table\Column;
+use Zortje\MySQLKeeper\Database\Table\ColumnCollection;
 use Zortje\MySQLKeeper\Database\Table\Index;
 
 /**
@@ -23,7 +23,7 @@ class Table {
 	private $collation;
 
 	/**
-	 * @var Column[] Table columns
+	 * @var ColumnCollection Table columns
 	 */
 	private $columns;
 
@@ -33,12 +33,12 @@ class Table {
 	private $indices;
 
 	/**
-	 * @param string   $name      Table name
-	 * @param string   $collation Table collation
-	 * @param Column[] $columns   Table columns
-	 * @param Index[]  $indices   Table indices
+	 * @param string           $name      Table name
+	 * @param string           $collation Table collation
+	 * @param ColumnCollection $columns   Table columns
+	 * @param Index[]          $indices   Table indices
 	 */
-	public function __construct($name, $collation, $columns, $indices) {
+	public function __construct($name, $collation, ColumnCollection $columns = null, $indices) {
 		$this->name      = $name;
 		$this->collation = $collation;
 		$this->columns   = $columns;
@@ -91,11 +91,11 @@ class Table {
 	/**
 	 * Get result of columns
 	 *
-	 * @param Column[] $columns Table columns
+	 * @param ColumnCollection $columns Table columns
 	 *
 	 * @return array Result
 	 */
-	public function checkColumns($columns) {
+	public function checkColumns(ColumnCollection $columns) {
 		$result = [];
 
 		foreach ($columns as $column) {
@@ -145,12 +145,12 @@ class Table {
 	/**
 	 * Check for redundant indices on primary key column
 	 *
-	 * @param Column[] $columns Table columns
-	 * @param Index[]  $indices Table indices
+	 * @param ColumnCollection $columns Table columns
+	 * @param Index[]          $indices Table indices
 	 *
 	 * @return array Result
 	 */
-	public function checkRedundantIndicesOnPrimaryKey($columns, $indices) {
+	public function checkRedundantIndicesOnPrimaryKey(ColumnCollection $columns, $indices) {
 		$result = [];
 
 		foreach ($columns as $column) {
@@ -187,11 +187,11 @@ class Table {
 	}
 
 	/**
-	 * @param Column[] $columns Table columns
+	 * @param ColumnCollection $columns Table columns
 	 *
 	 * @return array Result
 	 */
-	public function checkCollationMismatchBetweenTableAndColumns($columns) {
+	public function checkCollationMismatchBetweenTableAndColumns(ColumnCollection $columns) {
 		$result = [];
 
 		foreach ($columns as $column) {
