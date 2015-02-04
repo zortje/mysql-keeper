@@ -24,6 +24,23 @@ class ColumnCollection implements \Iterator, \Countable {
 	}
 
 	/**
+	 * Get column collection with primary key columns
+	 *
+	 * @return ColumnCollection
+	 */
+	public function isPrimaryKey() {
+		$columns = new ColumnCollection();
+
+		foreach ($this->columns as $column) {
+			if ($column->isPrimaryKey() === true) {
+				$columns->add($column);
+			}
+		}
+
+		return $columns;
+	}
+
+	/**
 	 * Return the current column
 	 *
 	 * @return Column Table column
@@ -56,7 +73,9 @@ class ColumnCollection implements \Iterator, \Countable {
 	 * Rewind the collection to the first column
 	 */
 	public function rewind() {
-		reset($this->columns);
+		if (!empty($this->columns)) {
+			reset($this->columns);
+		}
 	}
 
 	/**
@@ -65,10 +84,14 @@ class ColumnCollection implements \Iterator, \Countable {
 	 * @return bool Returns true on success or false on failure.
 	 */
 	public function valid() {
-		$key = key($this->columns);
-		$var = ($key !== null && $key !== false);
+		if (!empty($this->columns)) {
+			$key   = key($this->columns);
+			$valid = ($key !== null && $key !== false);
+		} else {
+			$valid = false;
+		}
 
-		return $var;
+		return $valid;
 	}
 
 	/**

@@ -33,10 +33,10 @@ class Table {
 	private $indices;
 
 	/**
-	 * @param string           $name      Table name
-	 * @param string           $collation Table collation
-	 * @param ColumnCollection $columns   Table columns
-	 * @param Index[]          $indices   Table indices
+	 * @param string                $name      Table name
+	 * @param string                $collation Table collation
+	 * @param null|ColumnCollection $columns   Table columns
+	 * @param Index[]               $indices   Table indices
 	 */
 	public function __construct($name, $collation, ColumnCollection $columns = null, $indices) {
 		$this->name      = $name;
@@ -153,32 +153,30 @@ class Table {
 	public function checkRedundantIndicesOnPrimaryKey(ColumnCollection $columns, $indices) {
 		$result = [];
 
-		foreach ($columns as $column) {
-			/**
-			 * Check primary key column
-			 */
-			if ($column->isPrimaryKey() === true) {
-				foreach ($indices as $index) {
-					/**
-					 * Skip the primary key index
-					 */
-					if ($index->isPrimaryKey() === true) {
-						continue;
-					}
+		/**
+		 * Check primary key columns
+		 */
+		foreach ($columns->isPrimaryKey() as $column) {
+			foreach ($indices as $index) {
+				/**
+				 * Skip the primary key index
+				 */
+				if ($index->isPrimaryKey() === true) {
+					continue;
+				}
 
+				/**
+				 * Check indices with just our primary key column
+				 */
+				if ($index->getColumns() === [$column->getField()]) {
 					/**
-					 * Check indices with just our primary key column
+					 * Check if index is unique
 					 */
-					if ($index->getColumns() === [$column->getField()]) {
-						/**
-						 * Check if index is unique
-						 */
-						$result[] = [
-							'type'        => 'index',
-							'key'         => $index->getKeyName(),
-							'description' => sprintf('An %s index on the primary key column is redundant', $index->isUnique() === true ? 'unique' : 'key')
-						];
-					}
+					$result[] = [
+						'type'        => 'index',
+						'key'         => $index->getKeyName(),
+						'description' => sprintf('An %s index on the primary key column is redundant', $index->isUnique() === true ? 'unique' : 'key')
+					];
 				}
 			}
 		}
