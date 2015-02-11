@@ -26,6 +26,36 @@ class ColumnCollectionTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame(2, $columns->count());
 	}
 
+	public function testIsPrimaryKey() {
+		$columns = new ColumnCollection();
+
+		$this->assertSame(0, $columns->isPrimaryKey()->count());
+
+		$columns->add(new Column([
+			'Field'     => null,
+			'Type'      => null,
+			'Collation' => null,
+			'Null'      => null,
+			'Key'       => null,
+			'Default'   => null,
+			'Extra'     => null
+		]));
+
+		$this->assertSame(0, $columns->isPrimaryKey()->count());
+
+		$columns->add(new Column([
+			'Field'     => 'foo',
+			'Type'      => null,
+			'Collation' => null,
+			'Null'      => null,
+			'Key'       => 'PRI',
+			'Default'   => null,
+			'Extra'     => null
+		]));
+
+		$this->assertSame(1, $columns->isPrimaryKey()->count());
+	}
+
 	public function testCurrent() {
 		$columns = new ColumnCollection();
 

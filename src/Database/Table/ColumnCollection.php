@@ -12,7 +12,7 @@ class ColumnCollection implements \Iterator, \Countable {
 	/**
 	 * @var Column[] Table columns
 	 */
-	private $columns;
+	private $columns = [];
 
 	/**
 	 * Add column to collection
