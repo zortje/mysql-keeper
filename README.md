@@ -2,7 +2,11 @@
 
 Find incorrect configurations or missed optimization opportunities in MySQL databases.
 
-[![Packagist](https://img.shields.io/packagist/v/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper) [![Travis](https://img.shields.io/travis/zortje/mysql-keeper.svg?style=flat)](https://travis-ci.org/zortje/mysql-keeper) [![Scrutinizer branch](https://img.shields.io/scrutinizer/coverage/g/zortje/mysql-keeper/master.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Scrutinizer](https://img.shields.io/scrutinizer/g/zortje/mysql-keeper.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![VersionEye](https://img.shields.io/versioneye/d/php/zortje:mysql-keeper.svg?style=flat)](https://www.versioneye.com/php/zortje:mysql-keeper) [![Packagist](https://img.shields.io/packagist/dt/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper)
+[![Packagist](https://img.shields.io/packagist/v/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper) [![Travis](https://img.shields.io/travis/zortje/mysql-keeper.svg?style=flat)](https://travis-ci.org/zortje/mysql-keeper) [![Scrutinizer branch](https://img.shields.io/scrutinizer/coverage/g/zortje/mysql-keeper/master.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) 
+
+[![Scrutinizer](https://img.shields.io/scrutinizer/g/zortje/mysql-keeper.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Code Climate](https://img.shields.io/codeclimate/github/zortje/mysql-keeper.svg)](https://codeclimate.com/github/zortje/mysql-keeper) [![Codacy](https://img.shields.io/codacy/1c9ba18e61664f84885bd76d1468ced9.svg)](https://www.codacy.com/public/zortje/mysql-keeper_2)
+
+[![VersionEye](https://img.shields.io/versioneye/d/php/zortje:mysql-keeper.svg?style=flat)](https://www.versioneye.com/php/zortje:mysql-keeper) [![Packagist](https://img.shields.io/packagist/dt/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper)
 
 ## Installing via Composer
 
