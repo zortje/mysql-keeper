@@ -12,13 +12,13 @@ use Zortje\MySQLKeeper\Database\Table;
 class TableTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetName() {
-		$table = new Table('users', null, null, null);
+		$table = new Table('users', null, new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$this->assertSame('users', $table->getName());
 	}
 
 	public function testGetCollation() {
-		$table = new Table(null, 'utf8_unicode_ci', null, null);
+		$table = new Table(null, 'utf8_unicode_ci', new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$this->assertSame('utf8_unicode_ci', $table->getCollation());
 	}
@@ -37,7 +37,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$columns = new Table\ColumnCollection();
 		$columns->add($column);
 
-		$table = new Table(null, null, $columns, []);
+		$table = new Table(null, null, $columns, new Table\IndexCollection());
 
 		$result = $table->getResult();
 
@@ -62,7 +62,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Check getResult once and save the result
 		 */
-		$table = new Table(null, null, $columns, []);
+		$table = new Table(null, null, $columns, new Table\IndexCollection());
 
 		$result = $table->getResult();
 
@@ -94,7 +94,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null, null, null);
+		$table = new Table(null, null, new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$tableResult = $table->checkColumns($columns);
 
@@ -105,15 +105,15 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Indices
 		 */
-		$indices = [
-			new Table\Index('id', null, ['id']),
-			new Table\Index('id2', null, ['id'])
-		];
+		$indices = new Table\IndexCollection();
+
+		$indices->add(new Table\Index('id', null, ['id']));
+		$indices->add(new Table\Index('id2', null, ['id']));
 
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null, null, null);
+		$table = new Table(null, null, new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$result = $table->checkDuplicateIndices($indices);
 
@@ -132,15 +132,15 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Indices
 		 */
-		$indices = [
-			new Table\Index('id', null, ['id']),
-			new Table\Index('active', null, ['active'])
-		];
+		$indices = new Table\IndexCollection();
+
+		$indices->add(new Table\Index('id', null, ['id']));
+		$indices->add(new Table\Index('active', null, ['active']));
 
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null, null, null);
+		$table = new Table(null, null, new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$result = $table->checkDuplicateIndices($indices);
 
@@ -167,16 +167,16 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Indicies
 		 */
-		$indices = [
-			new Table\Index('PRIMARY', true, ['id']),
-			new Table\Index('unique', true, ['id']),
-			new Table\Index('key', false, ['id'])
-		];
+		$indices = new Table\IndexCollection();
+
+		$indices->add(new Table\Index('PRIMARY', true, ['id']));
+		$indices->add(new Table\Index('unique', true, ['id']));
+		$indices->add(new Table\Index('key', false, ['id']));
 
 		/**
 		 * Table
 		 */
-		$table = new Table(null, null, null, null);
+		$table = new Table(null, null, new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$result = $table->checkRedundantIndicesOnPrimaryKey($columns, $indices);
 
@@ -232,7 +232,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, 'utf8_unicode_ci', null, null);
+		$table = new Table(null, 'utf8_unicode_ci', new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$result = $table->checkCollationMismatchBetweenTableAndColumns($columns);
 

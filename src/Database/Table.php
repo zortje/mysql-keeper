@@ -3,7 +3,7 @@
 namespace Zortje\MySQLKeeper\Database;
 
 use Zortje\MySQLKeeper\Database\Table\ColumnCollection;
-use Zortje\MySQLKeeper\Database\Table\Index;
+use Zortje\MySQLKeeper\Database\Table\IndexCollection;
 
 /**
  * Class Table
@@ -28,17 +28,17 @@ class Table {
 	private $columns;
 
 	/**
-	 * @var Index[] Table indices
+	 * @var IndexCollection Table indices
 	 */
 	private $indices;
 
 	/**
-	 * @param string                $name      Table name
-	 * @param string                $collation Table collation
-	 * @param null|ColumnCollection $columns   Table columns
-	 * @param Index[]               $indices   Table indices
+	 * @param string           $name      Table name
+	 * @param string           $collation Table collation
+	 * @param ColumnCollection $columns   Table columns
+	 * @param IndexCollection  $indices   Table indices
 	 */
-	public function __construct($name, $collation, ColumnCollection $columns = null, $indices) {
+	public function __construct($name, $collation, ColumnCollection $columns, IndexCollection $indices) {
 		$this->name      = $name;
 		$this->collation = $collation;
 		$this->columns   = $columns;
@@ -108,11 +108,11 @@ class Table {
 	/**
 	 * Check for duplicate indices
 	 *
-	 * @param Index[] $indices Table indices
+	 * @param IndexCollection $indices Table indices
 	 *
 	 * @return array Result
 	 */
-	public function checkDuplicateIndices($indices) {
+	public function checkDuplicateIndices(IndexCollection $indices) {
 		$result = [];
 
 		foreach ($indices as $i => $index) {
@@ -146,29 +146,25 @@ class Table {
 	 * Check for redundant indices on primary key column
 	 *
 	 * @param ColumnCollection $columns Table columns
-	 * @param Index[]          $indices Table indices
+	 * @param IndexCollection  $indices Table indices
 	 *
 	 * @return array Result
 	 */
-	public function checkRedundantIndicesOnPrimaryKey(ColumnCollection $columns, $indices) {
+	public function checkRedundantIndicesOnPrimaryKey(ColumnCollection $columns, IndexCollection $indices) {
 		$result = [];
 
 		/**
 		 * Check primary key columns
 		 */
 		foreach ($columns->isPrimaryKey() as $column) {
-			foreach ($indices as $index) {
-				/**
-				 * Skip the primary key index
-				 */
-				if ($index->isPrimaryKey() === true) {
-					continue;
-				}
-
+			/**
+			 * Check non primary key indices
+			 */
+			foreach ($indices->isNotPrimaryKey() as $index) {
 				/**
 				 * Check indices with just our primary key column
 				 */
-				if ($index->getColumns() === [$column->getField()]) {
+				if ($index->getColumns() === [$column->getField()]) { // @todo Create method to validate this
 					/**
 					 * Check if index is unique
 					 */

@@ -5,6 +5,7 @@ namespace Zortje\MySQLKeeper\Database;
 use Zortje\MySQLKeeper\Database\Table\Column;
 use Zortje\MySQLKeeper\Database\Table\ColumnCollection;
 use Zortje\MySQLKeeper\Database\Table\Index;
+use Zortje\MySQLKeeper\Database\Table\IndexCollection;
 
 /**
  * Class TableFactory
@@ -52,12 +53,12 @@ class TableFactory {
 			$indexRows[$row['Key_name']]['columnNames'][] = $row['Column_name'];
 		}
 
-		$indices = [];
+		$indices = new IndexCollection();
 
 		foreach ($indexRows as $keyName => $indexArray) {
 			$index = new Index($keyName, $indexArray['unique'], $indexArray['columnNames']);
 
-			$indices[] = $index;
+			$indices->add($index);
 		}
 
 		/**
