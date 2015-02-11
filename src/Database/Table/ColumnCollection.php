@@ -84,12 +84,8 @@ class ColumnCollection implements \Iterator, \Countable {
 	 * @return bool Returns true on success or false on failure.
 	 */
 	public function valid() {
-		if (is_array($this->columns) === true) {
-			$key   = key($this->columns);
-			$valid = ($key !== null && $key !== false);
-		} else {
-			$valid = false;
-		}
+		$key   = key($this->columns);
+		$valid = ($key !== null && $key !== false);
 
 		return $valid;
 	}
