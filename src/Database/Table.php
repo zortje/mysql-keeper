@@ -164,13 +164,15 @@ class Table {
 				 * Check indices with just our primary key column
 				 */
 				if ($index->getColumns() === [$column->getField()]) { // @todo Create method to validate this
+					$indexType = $index->isUnique() === true ? 'unique' : 'key';
+
 					/**
 					 * Check if index is unique
 					 */
 					$result[] = [
 						'type'        => 'index',
 						'key'         => $index->getKeyName(),
-						'description' => sprintf('An %s index on the primary key column is redundant', $index->isUnique() === true ? 'unique' : 'key')
+						'description' => sprintf('An %s index on the primary key column is redundant', $indexType)
 					];
 				}
 			}
