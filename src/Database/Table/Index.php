@@ -102,4 +102,17 @@ class Index {
 
 		return $duplicate;
 	}
+
+	/**
+	 * Check if given columns are equal to this index columns
+	 *
+	 * @param string[] $columns
+	 *
+	 * @return bool TRUE if equal, otherwise FALSE
+	 */
+	public function isColumnsEqual($columns) {
+		$equal = $this->getColumns() === $columns;
+
+		return $equal;
+	}
 }

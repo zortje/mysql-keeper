@@ -86,4 +86,28 @@ class IndexTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($indexAlpha->isDuplicate($indexBeta));
 		$this->assertFalse($indexBeta->isDuplicate($indexAlpha));
 	}
+
+	public function testIsColumnsEqual() {
+		$index = new Index(null, null, ['id']);
+
+		$this->assertTrue($index->isColumnsEqual(['id']));
+	}
+
+	public function testIsColumnsEqualNot() {
+		$index = new Index(null, null, ['id']);
+
+		$this->assertFalse($index->isColumnsEqual(['active']));
+	}
+
+	public function testIsColumnsEqualMultiple() {
+		$index = new Index(null, null, ['id', 'active']);
+
+		$this->assertTrue($index->isColumnsEqual(['id', 'active']));
+	}
+
+	public function testIsColumnsEqualDifferentOrdering() {
+		$index = new Index(null, null, ['id', 'active']);
+
+		$this->assertFalse($index->isColumnsEqual(['active', 'id']));
+	}
 }

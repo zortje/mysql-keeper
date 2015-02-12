@@ -156,6 +156,8 @@ class Table {
 		 * Check primary key columns
 		 */
 		foreach ($columns->isPrimaryKey() as $column) {
+			$colums = [$column->getField()];
+
 			/**
 			 * Check non primary key indices
 			 */
@@ -163,7 +165,7 @@ class Table {
 				/**
 				 * Check indices with just our primary key column
 				 */
-				if ($index->getColumns() === [$column->getField()]) { // @todo Create method to validate this
+				if ($index->isColumnsEqual($colums) === true) {
 					$indexType = $index->isUnique() === true ? 'unique' : 'key';
 
 					/**
