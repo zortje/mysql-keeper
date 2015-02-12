@@ -115,8 +115,10 @@ class Table {
 	public function checkDuplicateIndices(IndexCollection $indices) {
 		$result = [];
 
+		$indicesSecondary = clone $indices;
+
 		foreach ($indices as $i => $index) {
-			foreach ($indices as $j => $indexTwo) {
+			foreach ($indicesSecondary as $j => $indexSecondary) {
 				/**
 				 * Only check index that came before current index
 				 */
@@ -127,11 +129,11 @@ class Table {
 				/**
 				 * Check if index is duplicate
 				 */
-				if ($index->isDuplicate($indexTwo) === true) {
+				if ($index->isDuplicate($indexSecondary) === true) {
 					$result[] = [
 						'type'        => 'index',
 						'key'         => $index->getKeyName(),
-						'description' => sprintf('Is duplicate of %s', $indexTwo->getKeyName())
+						'description' => sprintf('Is duplicate of %s', $indexSecondary->getKeyName())
 					];
 
 					break;
