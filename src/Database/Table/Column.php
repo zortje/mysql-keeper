@@ -86,7 +86,9 @@ class Column {
 	 * @return bool TRUE if Column has collation, otherwise FALSE
 	 */
 	public function hasCollation() {
-		return strlen($this->getCollation()) > 0;
+		$hasCollation = strlen($this->getCollation()) > 0;
+
+		return $hasCollation;
 	}
 
 	/**
@@ -98,6 +100,17 @@ class Column {
 		$isPrimaryKey = $this->key === 'PRI';
 
 		return $isPrimaryKey;
+	}
+
+	/**
+	 * Is Column auto increment
+	 *
+	 * @return bool TRUE if auto increment, otherwise FALSE
+	 */
+	public function isAutoIncrement() {
+		$isAutoIncrement = $this->extra === 'auto_increment';
+
+		return $isAutoIncrement;
 	}
 
 	/**
@@ -114,14 +127,12 @@ class Column {
 		/**
 		 * auto_increment checks
 		 */
-		if ($this->extra === 'auto_increment') {
-			if ($this->isPrimaryKey() === false) {
-				$this->result[] = [
-					'type'        => 'column',
-					'field'       => $this->getField(),
-					'description' => 'Set as auto_increment but has no primary key'
-				];
-			}
+		if ($this->isAutoIncrement() === true && $this->isPrimaryKey() === false) {
+			$this->result[] = [
+				'type'        => 'column',
+				'field'       => $this->getField(),
+				'description' => 'Set as auto_increment but has no primary key'
+			];
 		}
 
 		return $this->result;

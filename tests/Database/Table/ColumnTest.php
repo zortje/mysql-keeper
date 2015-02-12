@@ -188,6 +188,38 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($column->isPrimaryKey());
 	}
 
+	public function testIsAutoIncrement() {
+		$row = [
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'PRI',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
+		];
+
+		$column = new Column($row);
+
+		$this->assertTrue($column->isAutoIncrement());
+	}
+
+	public function testIsAutoIncrementNot() {
+		$row = [
+			'Field'     => 'modified',
+			'Type'      => 'datetime',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => '',
+			'Default'   => '',
+			'Extra'     => ''
+		];
+
+		$column = new Column($row);
+
+		$this->assertFalse($column->isAutoIncrement());
+	}
+
 	public function testIncorrectAutoIncrementKey() {
 		$row = [
 			'Field'     => 'id',
