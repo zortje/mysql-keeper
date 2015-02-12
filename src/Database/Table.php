@@ -69,9 +69,6 @@ class Table {
 	 * @return array Result
 	 */
 	public function getResult() {
-		/**
-		 * Reset result
-		 */
 		$result = [];
 
 		/**

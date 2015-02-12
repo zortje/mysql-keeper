@@ -262,4 +262,44 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		 */
 		$this->assertSameSize($result, $column->getResult());
 	}
+
+	public function testCheckAutoIncrement() {
+		/**
+		 * Auto increment
+		 */
+		$row = [
+			'Field'     => 'id',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'MUL',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
+		];
+
+		$column = new Column($row);
+
+		$result = $column->getResult();
+
+		$this->assertGreaterThan(0, count($result));
+		$this->assertTrue(in_array('Set as auto_increment but has no primary key', $result[0]));
+
+		/**
+		 * Regular
+		 */
+		$row    = [
+			'Field'     => 'modified',
+			'Type'      => 'datetime',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => '',
+			'Default'   => '',
+			'Extra'     => ''
+		];
+		$column = new Column($row);
+
+		$result = $column->getResult();
+
+		$this->assertSame(0, count($result));
+	}
 }

@@ -45,11 +45,6 @@ class Column {
 	private $extra;
 
 	/**
-	 * @var array
-	 */
-	private $result = [];
-
-	/**
 	 * @param array $column Column information
 	 */
 	public function __construct($column) {
@@ -119,22 +114,34 @@ class Column {
 	 * @return array Result
 	 */
 	public function getResult() {
-		/**
-		 * Reset result
-		 */
-		$this->result = [];
+		$result = [];
 
 		/**
 		 * auto_increment checks
 		 */
-		if ($this->isAutoIncrement() === true && $this->isPrimaryKey() === false) {
-			$this->result[] = [
+		$result = array_merge($result, $this->checkAutoIncrement($this));
+
+		return $result;
+	}
+
+	/**
+	 * Check auto increment column
+	 *
+	 * @param Column $column Table column
+	 *
+	 * @return array Result
+	 */
+	public function checkAutoIncrement(Column $column) {
+		$result = [];
+
+		if ($column->isAutoIncrement() === true && $column->isPrimaryKey() === false) {
+			$result[] = [
 				'type'        => 'column',
-				'field'       => $this->getField(),
+				'field'       => $column->getField(),
 				'description' => 'Set as auto_increment but has no primary key'
 			];
 		}
 
-		return $this->result;
+		return $result;
 	}
 }
