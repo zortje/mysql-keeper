@@ -2,17 +2,19 @@
 
 namespace Zortje\MySQLKeeper\Database\Table;
 
+use Zortje\MySQLKeeper\Common\Collection;
+
 /**
  * Class ColumnCollection
  *
  * @package Zortje\MySQLKeeper\Database\Table
  */
-class ColumnCollection implements \Iterator, \Countable {
+class ColumnCollection extends Collection {
 
 	/**
 	 * @var Column[] Table columns
 	 */
-	private $columns = [];
+	protected $collection = [];
 
 	/**
 	 * Add column to collection
@@ -20,7 +22,7 @@ class ColumnCollection implements \Iterator, \Countable {
 	 * @param Column $column
 	 */
 	public function add(Column $column) {
-		$this->columns[] = $column;
+		$this->collection[] = $column;
 	}
 
 	/**
@@ -31,73 +33,12 @@ class ColumnCollection implements \Iterator, \Countable {
 	public function isPrimaryKey() {
 		$columns = new ColumnCollection();
 
-		foreach ($this->columns as $column) {
+		foreach ($this->collection as $column) {
 			if ($column->isPrimaryKey() === true) {
 				$columns->add($column);
 			}
 		}
 
 		return $columns;
-	}
-
-	/**
-	 * Return the current column
-	 *
-	 * @return false|Column Table column
-	 */
-	public function current() {
-		$column = current($this->columns);
-
-		return $column;
-	}
-
-	/**
-	 * Return the key of the current column
-	 *
-	 * @return mixed scalar on success, or null on failure.
-	 */
-	public function key() {
-		$key = key($this->columns);
-
-		return $key;
-	}
-
-	/**
-	 * Move forward to next column
-	 */
-	public function next() {
-		next($this->columns);
-	}
-
-	/**
-	 * Rewind the collection to the first column
-	 */
-	public function rewind() {
-		if (is_array($this->columns) === true) {
-			reset($this->columns);
-		}
-	}
-
-	/**
-	 * Checks if current position is valid
-	 *
-	 * @return bool Returns true on success or false on failure.
-	 */
-	public function valid() {
-		$key   = key($this->columns);
-		$valid = ($key !== null && $key !== false);
-
-		return $valid;
-	}
-
-	/**
-	 * Count elements of an object
-	 *
-	 * @return int Count
-	 */
-	public function count() {
-		$count = count($this->columns);
-
-		return $count;
 	}
 }
