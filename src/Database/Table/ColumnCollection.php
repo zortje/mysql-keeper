@@ -20,6 +20,8 @@ class ColumnCollection extends Collection {
 	 * Add column to collection
 	 *
 	 * @param Column $column
+	 *
+	 * @throws \InvalidArgumentException if incorrect object type is added
 	 */
 	public function add($column) {
 		if (get_class($column) !== 'Zortje\MySQLKeeper\Database\Table\Column') {

@@ -20,6 +20,8 @@ class IndexCollection extends Collection {
 	 * Add index to collection
 	 *
 	 * @param Index $index
+	 *
+	 * @throws \InvalidArgumentException if incorrect object type is added
 	 */
 	public function add($index) {
 		if (get_class($index) !== 'Zortje\MySQLKeeper\Database\Table\Index') {
