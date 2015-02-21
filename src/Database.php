@@ -3,6 +3,7 @@
 namespace Zortje\MySQLKeeper;
 
 use Zortje\MySQLKeeper\Database\TableCollection;
+use Zortje\MySQLKeeper\Database\Table;
 
 /**
  * Class Database
@@ -42,9 +43,15 @@ class Database {
 
 		/**
 		 * Go though tables to get results
+		 *
+		 * @var Table $table
 		 */
 		foreach ($this->tables as $table) {
-			$result = array_merge($result, $table->getResult());
+			$tableResult = $table->getResult();
+
+			if (count($tableResult['issues']) > 0) {
+				$result[$table->getName()] = $table->getResult();
+			}
 		}
 
 		return $result;

@@ -237,15 +237,17 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$result = $table->checkCollationMismatchBetweenTableAndColumns($columns);
 
 		$expected = [
-			[
-				'type'        => 'column',
-				'key'         => 'username',
-				'description' => 'Column is not using same collation as table'
-			],
-			[
-				'type'        => 'column',
-				'key'         => 'first_name',
-				'description' => 'Column is not using same collation as table'
+			'issues' => [
+				[
+					'type'        => 'column',
+					'key'         => 'username',
+					'description' => 'Column is not using same collation as table'
+				],
+				[
+					'type'        => 'column',
+					'key'         => 'first_name',
+					'description' => 'Column is not using same collation as table'
+				]
 			]
 		];
 

@@ -40,20 +40,22 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('utf8_unicode_ci', $table->getCollation());
 
 		$expected = [
-			[
-				'type'        => 'column',
-				'field'       => 'id',
-				'description' => 'Set as auto_increment but has no primary key'
-			],
-			[
-				'type'        => 'index',
-				'key'         => 'id_active2',
-				'description' => 'Is duplicate of id_active'
-			],
-			[
-				'type'        => 'column',
-				'key'         => 'username',
-				'description' => 'Column is not using same collation as table'
+			'issues' => [
+				[
+					'type'        => 'column',
+					'field'       => 'id',
+					'description' => 'Set as auto_increment but has no primary key'
+				],
+				[
+					'type'        => 'index',
+					'key'         => 'id_active2',
+					'description' => 'Is duplicate of id_active'
+				],
+				[
+					'type'        => 'column',
+					'key'         => 'username',
+					'description' => 'Column is not using same collation as table'
+				]
 			]
 		];
 
@@ -71,15 +73,17 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('utf8_unicode_ci', $table->getCollation());
 
 		$expected = [
-			[
-				'type'        => 'index',
-				'key'         => 'unique',
-				'description' => 'An unique index on the primary key column is redundant'
-			],
-			[
-				'type'        => 'index',
-				'key'         => 'key',
-				'description' => 'An key index on the primary key column is redundant'
+			'issues' => [
+				[
+					'type'        => 'index',
+					'key'         => 'unique',
+					'description' => 'An unique index on the primary key column is redundant'
+				],
+				[
+					'type'        => 'index',
+					'key'         => 'key',
+					'description' => 'An key index on the primary key column is redundant'
+				]
 			]
 		];
 

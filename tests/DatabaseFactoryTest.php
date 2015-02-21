@@ -56,31 +56,39 @@ class DatabaseFactoryTest extends \PHPUnit_Framework_TestCase {
 		$result = $database->getResult();
 
 		$expected = [
-			[
-				'type'        => 'index',
-				'key'         => 'unique',
-				'description' => 'An unique index on the primary key column is redundant'
+			'nodes' => [
+				'issues' => [
+					[
+						'type'        => 'index',
+						'key'         => 'unique',
+						'description' => 'An unique index on the primary key column is redundant'
+					],
+					[
+						'type'        => 'index',
+						'key'         => 'key',
+						'description' => 'An key index on the primary key column is redundant'
+					]
+				]
 			],
-			[
-				'type'        => 'index',
-				'key'         => 'key',
-				'description' => 'An key index on the primary key column is redundant'
-			],
-			[
-				'type'        => 'column',
-				'field'       => 'id',
-				'description' => 'Set as auto_increment but has no primary key'
-			],
-			[
-				'type'        => 'index',
-				'key'         => 'id_active2',
-				'description' => 'Is duplicate of id_active'
-			],
-			[
-				'type'        => 'column',
-				'key'         => 'username',
-				'description' => 'Column is not using same collation as table'
-			],
+			'users' => [
+				'issues' => [
+					[
+						'type'        => 'column',
+						'field'       => 'id',
+						'description' => 'Set as auto_increment but has no primary key'
+					],
+					[
+						'type'        => 'index',
+						'key'         => 'id_active2',
+						'description' => 'Is duplicate of id_active'
+					],
+					[
+						'type'        => 'column',
+						'key'         => 'username',
+						'description' => 'Column is not using same collation as table'
+					]
+				]
+			]
 		];
 
 		$this->assertSame($expected, $result);

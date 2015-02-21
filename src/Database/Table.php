@@ -72,15 +72,16 @@ class Table {
 		$result = [];
 
 		/**
-		 * Go though columns and get result
-		 * Find duplicate indices
-		 * Check redundant indices on primary key
-		 * Check collation mismatch between table and columns
+		 * Get issues
 		 */
-		$result = array_merge($result, $this->checkColumns($this->columns));
-		$result = array_merge($result, $this->checkDuplicateIndices($this->indices));
-		$result = array_merge($result, $this->checkRedundantIndicesOnPrimaryKey($this->columns, $this->indices));
-		$result = array_merge($result, $this->checkCollationMismatchBetweenTableAndColumns($this->columns));
+		$issues = [];
+
+		$issues = array_merge($issues, $this->checkColumns($this->columns));
+		$issues = array_merge($issues, $this->checkDuplicateIndices($this->indices));
+		$issues = array_merge($issues, $this->checkRedundantIndicesOnPrimaryKey($this->columns, $this->indices));
+		$issues = array_merge($issues, $this->checkCollationMismatchBetweenTableAndColumns($this->columns));
+
+		$result['issues'] = $issues;
 
 		return $result;
 	}
