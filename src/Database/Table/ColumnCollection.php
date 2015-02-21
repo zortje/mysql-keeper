@@ -24,10 +24,10 @@ class ColumnCollection extends Collection {
 	 * @throws \InvalidArgumentException if incorrect object type is added
 	 */
 	public function add($column) {
-		if (!is_object($column) || get_class($column) !== get_class(new Column(null))) {
+		if (!is_object($column) || get_class($column) !== 'Zortje\MySQLKeeper\Database\Table\Column') {
 			$argumentType = is_object($column) ? get_class($column) : gettype($column);
 
-			throw new \InvalidArgumentException(sprintf('Collection may only contain "%s" objects, "%s" is not allowed', get_class(new Column(null)), $argumentType));
+			throw new \InvalidArgumentException(sprintf('Collection may only contain "%s" objects, "%s" is not allowed', 'Zortje\MySQLKeeper\Database\Table\Column', $argumentType));
 		}
 
 		$this->collection[] = $column;

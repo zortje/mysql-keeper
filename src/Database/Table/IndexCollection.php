@@ -24,10 +24,10 @@ class IndexCollection extends Collection {
 	 * @throws \InvalidArgumentException if incorrect object type is added
 	 */
 	public function add($index) {
-		if (!is_object($index) || get_class($index) !== get_class(new Index(null, null, null))) {
+		if (!is_object($index) || get_class($index) !== 'Zortje\MySQLKeeper\Database\Table\Index') {
 			$argumentType = is_object($index) ? get_class($index) : gettype($index);
 
-			throw new \InvalidArgumentException(sprintf('Collection may only contain "%s" objects, "%s" is not allowed', get_class(new Index(null, null, null)), $argumentType));
+			throw new \InvalidArgumentException(sprintf('Collection may only contain "%s" objects, "%s" is not allowed', 'Zortje\MySQLKeeper\Database\Table\Index', $argumentType));
 		}
 
 		$this->collection[] = $index;
