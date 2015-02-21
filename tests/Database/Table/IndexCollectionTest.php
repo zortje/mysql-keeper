@@ -26,6 +26,14 @@ class IndexCollectionTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame(2, $indices->count());
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testAddException() {
+		$indices = new IndexCollection();
+		$indices->add(42);
+	}
+
 	public function testIsNotPrimaryKey() {
 		$indices = new IndexCollection();
 

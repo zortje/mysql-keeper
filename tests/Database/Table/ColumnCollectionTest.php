@@ -26,6 +26,14 @@ class ColumnCollectionTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame(2, $columns->count());
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testAddException() {
+		$columns = new ColumnCollection();
+		$columns->add(42);
+	}
+
 	public function testIsPrimaryKey() {
 		$columns = new ColumnCollection();
 
