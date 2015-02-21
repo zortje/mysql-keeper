@@ -109,7 +109,7 @@ class Column {
 	}
 
 	/**
-	 * Get result of column
+	 * Get result for column
 	 *
 	 * @return array Result
 	 */

@@ -64,7 +64,7 @@ class Table {
 	}
 
 	/**
-	 * Get result of table
+	 * Get result for table
 	 *
 	 * @return array Result
 	 */
@@ -86,7 +86,7 @@ class Table {
 	}
 
 	/**
-	 * Get result of columns
+	 * Get result for columns
 	 *
 	 * @param ColumnCollection $columns Table columns
 	 *
