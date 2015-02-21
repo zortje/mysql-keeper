@@ -28,6 +28,7 @@ class IndexCollectionTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage Collection may only contain "Zortje\MySQLKeeper\Database\Table\Index" objects, "integer" is not allowed
 	 */
 	public function testAddException() {
 		$indices = new IndexCollection();

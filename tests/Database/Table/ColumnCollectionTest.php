@@ -28,6 +28,7 @@ class ColumnCollectionTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage Collection may only contain "Zortje\MySQLKeeper\Database\Table\Column" objects, "integer" is not allowed
 	 */
 	public function testAddException() {
 		$columns = new ColumnCollection();
