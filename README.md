@@ -27,9 +27,6 @@ $pdo = new PDO('mysql:host=127.0.0.1;dbname=myapp', 'root', '');
 
 $database = DatabaseFactory::create($pdo);
 $databaseResult = $database->getResult();
-
-$table = TableFactory::create('users', $pdo);
-$tableResult = $table->getResult();
 ```
 
 The `$databaseResult` array will look something like this with the first level keys being table names.
@@ -60,33 +57,30 @@ The `$databaseResult` array will look something like this with the first level k
 ];
 ```
 
-The `$tableResult` array will look something like this.
+## Usage with Melody
 
+[Melody](http://melody.sensiolabs.org) allows inline Composer requirements to simply execute PHP scripts.
+
+mysql-keeper_myapp.php
 ```PHP
-[
-	'issues' => [
-		[
-			'type' => 'field',
-			'field' => 'id',
-			'description' => 'Set as auto_increment but is not set as primary'
-		],
-		[
-			'type' => 'field',
-			'field' => 'id',
-			'description' => 'Set as auto_increment but is not set as primary'
-		]
-	],
-	'optimizations' => [
-		[
-			'type' => 'field',
-			'field' => 'id',
-			'description' => 'Field should be unsigned, as no field values are negative'
-		]
-	]
-];
+<?php
+
+<<<CONFIG
+packages:
+    - "zortje/mysql-keeper": "~0.0"
+CONFIG;
+
+$pdo = new PDO('mysql:host=127.0.0.1;dbname=myapp', 'root', '');
+
+$database = Zortje\MySQLKeeper\DatabaseFactory::create($pdo);
+
+print_r($database->getResult());
 ```
 
-*Coming Soon™, how to easily run MySQL Keeper with Melody*
+Simply run:
+```
+$ melody run mysql-keeper_myapp.php
+```
 
 ## Features
 
