@@ -21,7 +21,11 @@ class IndexCollection extends Collection {
 	 *
 	 * @param Index $index
 	 */
-	public function add(Index $index) {
+	public function add($index) {
+		if (get_class($index) !== 'Zortje\MySQLKeeper\Database\Table\Index') {
+			throw new \InvalidArgumentException(sprintf('Collection may only contain "Zortje\MySQLKeeper\Database\Table\Index" objects, "%s" is not allowed', get_class($index)));
+		}
+
 		$this->collection[] = $index;
 	}
 

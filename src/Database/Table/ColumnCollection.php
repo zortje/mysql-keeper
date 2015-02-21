@@ -21,7 +21,11 @@ class ColumnCollection extends Collection {
 	 *
 	 * @param Column $column
 	 */
-	public function add(Column $column) {
+	public function add($column) {
+		if (get_class($column) !== 'Zortje\MySQLKeeper\Database\Table\Column') {
+			throw new \InvalidArgumentException(sprintf('Collection may only contain "Zortje\MySQLKeeper\Database\Table\Column" objects, "%s" is not allowed', get_class($column)));
+		}
+
 		$this->collection[] = $column;
 	}
 
