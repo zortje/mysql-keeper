@@ -41,8 +41,8 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 
 		$result = $table->getResult();
 
-		$this->assertGreaterThan(0, count($result));
-		$this->assertTrue(in_array('Set as auto_increment but has no primary key', $result[0]));
+		$this->assertSame(1, count($result));
+		$this->assertSame('Set as auto_increment but has no primary key', $result['issues'][0]['description']);
 	}
 
 	public function testResetOfIssues() {
@@ -191,6 +191,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 				'key'         => 'key',
 				'description' => 'An key index on the primary key column is redundant'
 			]
+
 		];
 
 		$this->assertSame($expected, $result);
@@ -237,17 +238,15 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$result = $table->checkCollationMismatchBetweenTableAndColumns($columns);
 
 		$expected = [
-			'issues' => [
-				[
-					'type'        => 'column',
-					'key'         => 'username',
-					'description' => 'Column is not using same collation as table'
-				],
-				[
-					'type'        => 'column',
-					'key'         => 'first_name',
-					'description' => 'Column is not using same collation as table'
-				]
+			[
+				'type'        => 'column',
+				'key'         => 'username',
+				'description' => 'Column is not using same collation as table'
+			],
+			[
+				'type'        => 'column',
+				'key'         => 'first_name',
+				'description' => 'Column is not using same collation as table'
 			]
 		];
 
