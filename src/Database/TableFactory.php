@@ -15,6 +15,8 @@ use Zortje\MySQLKeeper\Database\Table\IndexCollection;
 class TableFactory {
 
 	/**
+	 * Create table
+	 *
 	 * @param string $tableName Table name
 	 * @param \PDO   $pdo       Database connection
 	 *
