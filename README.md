@@ -25,10 +25,10 @@ The recommended way to install MySQL Keeper is though [Composer](https://getcomp
 ```PHP
 $pdo = new PDO('mysql:host=127.0.0.1;dbname=myapp', 'root', '');
 
-$database = new DatabaseFactory::create($pdo);
+$database = DatabaseFactory::create($pdo);
 $databaseResult = $database->getResult();
 
-$table = new TableFactory::create('users', $pdo);
+$table = TableFactory::create('users', $pdo);
 $tableResult = $table->getResult();
 ```
 
