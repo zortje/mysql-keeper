@@ -131,7 +131,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @covers ::hasCollation
 	 */
-	public function hasCollation() {
+	public function testHasCollation() {
 		$row = [
 			'Field'     => null,
 			'Type'      => null,
@@ -150,7 +150,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @covers ::hasCollation
 	 */
-	public function hasCollationNull() {
+	public function testHasCollationNull() {
 		$row = [
 			'Field'     => null,
 			'Type'      => null,
@@ -169,7 +169,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @covers ::hasCollation
 	 */
-	public function hasCollationEmpty() {
+	public function testHasCollationEmpty() {
 		$row = [
 			'Field'     => null,
 			'Type'      => null,
