@@ -3,6 +3,7 @@
 namespace Zortje\MySQLKeeper\Tests;
 
 use Zortje\MySQLKeeper\Database;
+use Zortje\MySQLKeeper\Database\Table;
 
 /**
  * Class DatabaseTest
@@ -25,6 +26,9 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame(1, count($databaseTables));
 
+		/**
+		 * @var Table $table
+		 */
 		foreach ($databaseTables as $i => $table) {
 			switch ($i) {
 				case 0:
@@ -37,4 +41,6 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase {
 			}
 		}
 	}
+
+	// @todo tests for ::getResult should determine expected result from the tables (with names) and then seeing the actual result from getResult()
 }

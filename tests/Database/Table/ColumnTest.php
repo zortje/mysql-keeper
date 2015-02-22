@@ -327,4 +327,6 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	// @todo Test checkAutoIncrement
+
+	// @todo tests for ::getResult should determine expected result from checkAutoIncrement($column) and then seeing the actual result from getResult()
 }
