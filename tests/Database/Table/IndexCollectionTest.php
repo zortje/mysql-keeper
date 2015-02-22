@@ -8,10 +8,15 @@ use Zortje\MySQLKeeper\Database\Table\IndexCollection;
 /**
  * Class IndexCollectionTest
  *
- * @package Zortje\MySQLKeeper\Tests\Database\Table
+ * @package            Zortje\MySQLKeeper\Tests\Database\Table
+ *
+ * @coversDefaultClass Zortje\MySQLKeeper\Database\Table\IndexCollection
  */
 class IndexCollectionTest extends \PHPUnit_Framework_TestCase {
 
+	/**
+	 * @covers ::add
+	 */
 	public function testAdd() {
 		$indices = new IndexCollection();
 		$this->assertSame(0, count($indices));
@@ -27,6 +32,8 @@ class IndexCollectionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @covers ::add
+	 *
 	 * @expectedException \InvalidArgumentException
 	 * @expectedExceptionMessage Collection may only contain "Zortje\MySQLKeeper\Database\Table\Index" objects, "integer" is not allowed
 	 */
@@ -35,6 +42,9 @@ class IndexCollectionTest extends \PHPUnit_Framework_TestCase {
 		$indices->add(42);
 	}
 
+	/**
+	 * @covers ::isNotPrimaryKey
+	 */
 	public function testIsNotPrimaryKey() {
 		$indices = new IndexCollection();
 

@@ -7,7 +7,9 @@ use Zortje\MySQLKeeper\Database\TableFactory;
 /**
  * Class TableFactoryTest
  *
- * @package Zortje\MySQLKeeper\Tests\Database
+ * @package            Zortje\MySQLKeeper\Tests\Database
+ *
+ * @coversDefaultClass Zortje\MySQLKeeper\Database\TableFactory
  */
 class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 
@@ -22,6 +24,8 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @covers ::create
+	 *
 	 * @expectedException \InvalidArgumentException
 	 * @expectedExceptionMessage Table table_not_found was not found
 	 */
@@ -29,6 +33,9 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		TableFactory::create('table_not_found', $this->pdo);
 	}
 
+	/**
+	 * @covers ::create
+	 */
 	public function testCreateUsers() {
 		$this->pdo->query(file_get_contents('tests/Database/files/users.sql'));
 
@@ -62,6 +69,9 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame($expected, $result);
 	}
 
+	/**
+	 * @covers ::create
+	 */
 	public function testCreateNodes() {
 		$this->pdo->query(file_get_contents('tests/Database/files/nodes.sql'));
 

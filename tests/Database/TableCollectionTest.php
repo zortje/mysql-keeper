@@ -8,10 +8,15 @@ use Zortje\MySQLKeeper\Database\TableCollection;
 /**
  * Class TableCollectionTest
  *
- * @package Zortje\MySQLKeeper\Tests\Database\Table
+ * @package            Zortje\MySQLKeeper\Tests\Database\Table
+ *
+ * @coversDefaultClass Zortje\MySQLKeeper\Database\TableCollection
  */
 class TableCollectionTest extends \PHPUnit_Framework_TestCase {
 
+	/**
+	 * @covers ::add
+	 */
 	public function testAdd() {
 		$tables = new TableCollection();
 		$this->assertSame(0, count($tables));
@@ -27,6 +32,8 @@ class TableCollectionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @covers ::add
+	 *
 	 * @expectedException \InvalidArgumentException
 	 * @expectedExceptionMessage Collection may only contain "Zortje\MySQLKeeper\Database\Table" objects, "integer" is not allowed
 	 */

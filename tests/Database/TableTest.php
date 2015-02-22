@@ -8,21 +8,32 @@ use Zortje\MySQLKeeper\Database\Table;
  * Class TableTest
  *
  * @package Zortje\MySQLKeeper\Tests\Database
+ *
+ * @coversDefaultClass Zortje\MySQLKeeper\Database\Table
  */
 class TableTest extends \PHPUnit_Framework_TestCase {
 
+	/**
+	 * @covers ::getName
+	 */
 	public function testGetName() {
 		$table = new Table('users', null, new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$this->assertSame('users', $table->getName());
 	}
 
+	/**
+	 * @covers ::getCollation
+	 */
 	public function testGetCollation() {
 		$table = new Table(null, 'utf8_unicode_ci', new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$this->assertSame('utf8_unicode_ci', $table->getCollation());
 	}
 
+	/**
+	 * @covers ::getResult
+	 */
 	public function testTableResult() {
 		$column = new Table\Column([
 			'Field'     => 'id',
@@ -45,6 +56,9 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('Set as auto_increment but has no primary key', $result['issues'][0]['description']);
 	}
 
+	/**
+	 * @covers ::getResult
+	 */
 	public function testResetOfIssues() {
 		$column = new Table\Column([
 			'Field'     => 'id',
@@ -72,6 +86,10 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSameSize($result, $table->getResult());
 	}
 
+	/**
+	 * @coversNothing
+	 * @todo What does this test exactly?
+	 */
 	public function testCheckColumns() {
 		/**
 		 * Column
@@ -101,6 +119,9 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame($columnResult, $tableResult);
 	}
 
+	/**
+	 * @covers ::checkDuplicateIndices
+	 */
 	public function testCheckIsDuplicate() {
 		/**
 		 * Indices
@@ -128,6 +149,9 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame($expected, $result);
 	}
 
+	/**
+	 * @covers ::checkDuplicateIndices
+	 */
 	public function testCheckIsDuplicateEmpty() {
 		/**
 		 * Indices
@@ -147,6 +171,9 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame([], $result);
 	}
 
+	/**
+	 * @covers ::checkRedundantIndicesOnPrimaryKey
+	 */
 	public function testCheckRedundantIndicesOnPrimaryKey() {
 		/**
 		 * Column
@@ -197,6 +224,9 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame($expected, $result);
 	}
 
+	/**
+	 * @covers ::checkCollationMismatchBetweenTableAndColumns
+	 */
 	public function testCheckCollationMismatchBetweenTableAndColumns() {
 		$columns = new Table\ColumnCollection();
 

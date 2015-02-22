@@ -7,7 +7,9 @@ use Zortje\MySQLKeeper\DatabaseFactory;
 /**
  * Class DatabaseFactoryTest
  *
- * @package Zortje\MySQLKeeper\Tests
+ * @package            Zortje\MySQLKeeper\Tests
+ *
+ * @coversDefaultClass Zortje\MySQLKeeper\DatabaseFactory
  */
 class DatabaseFactoryTest extends \PHPUnit_Framework_TestCase {
 
@@ -21,6 +23,9 @@ class DatabaseFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 	}
 
+	/**
+	 * @covers ::create
+	 */
 	public function testCreateTableNames() {
 		$this->pdo->query(file_get_contents('tests/Database/files/nodes.sql'));
 		$this->pdo->query(file_get_contents('tests/Database/files/users.sql'));
@@ -47,6 +52,9 @@ class DatabaseFactoryTest extends \PHPUnit_Framework_TestCase {
 		}
 	}
 
+	/**
+	 * @covers ::create
+	 */
 	public function testDatabaseResults() {
 		$this->pdo->query(file_get_contents('tests/Database/files/nodes.sql'));
 		$this->pdo->query(file_get_contents('tests/Database/files/users.sql'));

@@ -8,10 +8,15 @@ use Zortje\MySQLKeeper\Database\Table\ColumnCollection;
 /**
  * Class ColumnCollectionTest
  *
- * @package Zortje\MySQLKeeper\Tests\Database\Table
+ * @package            Zortje\MySQLKeeper\Tests\Database\Table
+ *
+ * @coversDefaultClass Zortje\MySQLKeeper\Database\Table\ColumnCollection
  */
 class ColumnCollectionTest extends \PHPUnit_Framework_TestCase {
 
+	/**
+	 * @covers ::add
+	 */
 	public function testAdd() {
 		$columns = new ColumnCollection();
 		$this->assertSame(0, count($columns));
@@ -27,6 +32,8 @@ class ColumnCollectionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @covers ::add
+	 *
 	 * @expectedException \InvalidArgumentException
 	 * @expectedExceptionMessage Collection may only contain "Zortje\MySQLKeeper\Database\Table\Column" objects, "integer" is not allowed
 	 */
@@ -35,6 +42,9 @@ class ColumnCollectionTest extends \PHPUnit_Framework_TestCase {
 		$columns->add(42);
 	}
 
+	/**
+	 * @covers ::isPrimaryKey
+	 */
 	public function testIsPrimaryKey() {
 		$columns = new ColumnCollection();
 

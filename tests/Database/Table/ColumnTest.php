@@ -9,9 +9,14 @@ use Zortje\MySQLKeeper\Database\Table\Column;
  * Class ColumnTest
  *
  * @package Zortje\MySQLKeeper\Tests\Database\Table
+ *
+ * @coversDefaultClass Zortje\MySQLKeeper\Database\Table\Column
  */
 class ColumnTest extends \PHPUnit_Framework_TestCase {
 
+	/**
+	 * @covers ::getField
+	 */
 	public function testGetField() {
 		$row = [
 			'Field'     => 'id',
@@ -28,6 +33,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('id', $column->getField());
 	}
 
+	/**
+	 * @covers ::getField
+	 */
 	public function testGetFieldNull() {
 		$row = [
 			'Field'     => null,
@@ -44,6 +52,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame(null, $column->getField());
 	}
 
+	/**
+	 * @covers ::getField
+	 */
 	public function testGetFieldEmpty() {
 		$row = [
 			'Field'     => '',
@@ -60,6 +71,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('', $column->getField());
 	}
 
+	/**
+	 * @covers ::getCollation
+	 */
 	public function testGetCollation() {
 		$row = [
 			'Field'     => null,
@@ -76,6 +90,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('utf8_unicode_ci', $column->getCollation());
 	}
 
+	/**
+	 * @covers ::getCollation
+	 */
 	public function testGetCollationNull() {
 		$row = [
 			'Field'     => null,
@@ -92,6 +109,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame(null, $column->getCollation());
 	}
 
+	/**
+	 * @covers ::getCollation
+	 */
 	public function testGetCollationEmpty() {
 		$row = [
 			'Field'     => null,
@@ -108,6 +128,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame('', $column->getCollation());
 	}
 
+	/**
+	 * @covers ::hasCollation
+	 */
 	public function hasCollation() {
 		$row = [
 			'Field'     => null,
@@ -124,6 +147,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($column->hasCollation());
 	}
 
+	/**
+	 * @covers ::hasCollation
+	 */
 	public function hasCollationNull() {
 		$row = [
 			'Field'     => null,
@@ -140,6 +166,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($column->hasCollation());
 	}
 
+	/**
+	 * @covers ::hasCollation
+	 */
 	public function hasCollationEmpty() {
 		$row = [
 			'Field'     => null,
@@ -156,6 +185,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($column->hasCollation());
 	}
 
+	/**
+	 * @covers ::isPrimaryKey
+	 */
 	public function testIsPrimaryKey() {
 		$row = [
 			'Field'     => 'id',
@@ -172,6 +204,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($column->isPrimaryKey());
 	}
 
+	/**
+	 * @covers ::isPrimaryKey
+	 */
 	public function testIsPrimaryKeyNot() {
 		$row = [
 			'Field'     => 'modified',
@@ -188,6 +223,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($column->isPrimaryKey());
 	}
 
+	/**
+	 * @covers ::isAutoIncrement
+	 */
 	public function testIsAutoIncrement() {
 		$row = [
 			'Field'     => 'id',
@@ -204,6 +242,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($column->isAutoIncrement());
 	}
 
+	/**
+	 * @covers ::isAutoIncrement
+	 */
 	public function testIsAutoIncrementNot() {
 		$row = [
 			'Field'     => 'modified',
@@ -220,6 +261,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($column->isAutoIncrement());
 	}
 
+	/**
+	 * @covers ::isAutoIncrement
+	 * @todo test of Covers (should be getResult) ?
+	 */
 	public function testIncorrectAutoIncrementKey() {
 		$row = [
 			'Field'     => 'id',
@@ -239,6 +284,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue(in_array('Set as auto_increment but has no primary key', $result[0]));
 	}
 
+	/**
+	 * @coversNothing
+	 * @todo TEST
+	 */
 	public function testResetOfIssues() {
 		$row = [
 			'Field'     => 'id',
@@ -263,6 +312,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSameSize($result, $column->getResult());
 	}
 
+	/**
+	 * @coversNothing
+	 * @todo TEST
+	 */
 	public function testCheckAutoIncrement() {
 		/**
 		 * Auto increment
