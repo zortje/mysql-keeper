@@ -325,4 +325,6 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame(0, count($result));
 	}
+
+	// @todo Test checkAutoIncrement
 }
