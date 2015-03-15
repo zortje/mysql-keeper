@@ -2,6 +2,8 @@ language: php
 
 notifications:
   email: false
+  slack:
+    secure: MZxyzW0WH8v3Z6z/KGPH2I3L0xY4+ss60/Sygpd4FrSDoWsGS1MpwJ+35sOB86eptIhRUeueYdiWqqoxkfBXUfWUlYSmc+o9dDUMEbItvqH0+/aYrDxrzFsOw2VCOa8DtbewMhsd/6JUfs/CAaQeD7Hhk0uzLGJeySxyQSnQXvI=
 
 php:
   - 5.4
