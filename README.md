@@ -6,6 +6,16 @@ Find incorrect configurations or missed optimization opportunities in MySQL data
 
 [![VersionEye](https://img.shields.io/versioneye/d/php/zortje:mysql-keeper.svg?style=flat)](https://www.versioneye.com/php/zortje:mysql-keeper) [![Packagist](https://img.shields.io/packagist/dt/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper)
 
+## Features
+
+Detects the following issues
+
+* Duplicate indices
+* Missing primary key on auto_increment column
+* Redundant unique index on primary key
+* Redundant key index on primary key
+* Inconsistent usage of collation between table and columns
+
 ## Installing via Composer
 
 The recommended way to install MySQL Keeper is though [Composer](https://getcomposer.org/).
@@ -79,13 +89,3 @@ Simply run:
 ```
 $ melody run mysql-keeper_myapp.php
 ```
-
-## Features
-
-Detects the following issues
-
-* Duplicate indices
-* Missing primary key on auto_increment column
-* Redundant unique index on primary key
-* Redundant key index on primary key
-* Inconsistent usage of collation between table and columns
