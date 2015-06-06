@@ -16,6 +16,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @covers ::getTables
+	 * @covers ::__construct
 	 */
 	public function testGetTables() {
 		$tables = new Database\TableCollection();
