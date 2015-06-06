@@ -7,7 +7,7 @@ use Zortje\MySQLKeeper\Database\Table;
 /**
  * Class TableTest
  *
- * @package Zortje\MySQLKeeper\Tests\Database
+ * @package            Zortje\MySQLKeeper\Tests\Database
  *
  * @coversDefaultClass Zortje\MySQLKeeper\Database\Table
  */
@@ -26,9 +26,9 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	 * @covers ::getCollation
 	 */
 	public function testGetCollation() {
-		$table = new Table(null, 'utf8_unicode_ci', new Table\ColumnCollection(), new Table\IndexCollection());
+		$table = new Table(null, 'utf8mb4_unicode_ci', new Table\ColumnCollection(), new Table\IndexCollection());
 
-		$this->assertSame('utf8_unicode_ci', $table->getCollation());
+		$this->assertSame('utf8mb4_unicode_ci', $table->getCollation());
 	}
 
 	/**
@@ -87,15 +87,14 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @coversNothing
-	 * @todo What does this test exactly?
+	 * @covers ::checkColumns
 	 */
 	public function testCheckColumns() {
 		/**
 		 * Column
 		 */
-		$column = new Table\Column([
-			'Field'     => 'id',
+		$foo = new Table\Column([
+			'Field'     => 'foo',
 			'Type'      => 'int(10) unsigned',
 			'Collation' => '',
 			'Null'      => 'NO',
@@ -104,10 +103,19 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 			'Extra'     => 'auto_increment'
 		]);
 
-		$columnResult = $column->getResult();
+		$bar = new Table\Column([
+			'Field'     => 'bar',
+			'Type'      => 'int(10) unsigned',
+			'Collation' => '',
+			'Null'      => 'NO',
+			'Key'       => 'MUL',
+			'Default'   => '',
+			'Extra'     => 'auto_increment'
+		]);
 
 		$columns = new Table\ColumnCollection();
-		$columns->add($column);
+		$columns->add($foo);
+		$columns->add($bar);
 
 		/**
 		 * Table
@@ -116,7 +124,20 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 
 		$tableResult = $table->checkColumns($columns);
 
-		$this->assertSame($columnResult, $tableResult);
+		$expected = [
+			[
+				'type'        => 'column',
+				'field'       => 'foo',
+				'description' => 'Set as auto_increment but has no primary key'
+			],
+			[
+				'type'        => 'column',
+				'field'       => 'bar',
+				'description' => 'Set as auto_increment but has no primary key'
+			]
+		];
+
+		$this->assertSame($expected, $tableResult);
 	}
 
 	/**
@@ -233,7 +254,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$columns->add(new Table\Column([
 			'Field'     => 'username',
 			'Type'      => null,
-			'Collation' => 'utf8_danish_ci',
+			'Collation' => 'utf8_unicode_ci',
 			'Null'      => null,
 			'Key'       => null,
 			'Default'   => null,
@@ -243,7 +264,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$columns->add(new Table\Column([
 			'Field'     => 'first_name',
 			'Type'      => null,
-			'Collation' => 'utf8_danish_ci',
+			'Collation' => 'utf8_unicode_ci',
 			'Null'      => null,
 			'Key'       => null,
 			'Default'   => null,
@@ -253,7 +274,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		$columns->add(new Table\Column([
 			'Field'     => 'last_name',
 			'Type'      => null,
-			'Collation' => 'utf8_unicode_ci',
+			'Collation' => 'utf8mb4_unicode_ci',
 			'Null'      => null,
 			'Key'       => null,
 			'Default'   => null,
@@ -263,7 +284,7 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 		/**
 		 * Table
 		 */
-		$table = new Table(null, 'utf8_unicode_ci', new Table\ColumnCollection(), new Table\IndexCollection());
+		$table = new Table(null, 'utf8mb4_unicode_ci', new Table\ColumnCollection(), new Table\IndexCollection());
 
 		$result = $table->checkCollationMismatchBetweenTableAndColumns($columns);
 
@@ -282,4 +303,26 @@ class TableTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame($expected, $result);
 	}
+
+	/**
+	 * @covers ::__construct
+	 */
+	public function testConstruct() {
+		$columns = new Table\ColumnCollection();
+
+		$indices = new Table\IndexCollection();
+
+		$table = new Table('foo', 'utf8mb4_unicode_ci', $columns, $indices);
+
+		$reflector = new \ReflectionClass($table);
+
+		$name = $reflector->getProperty('name');
+		$name->setAccessible(true);
+		$this->assertSame('foo', $name->getValue($table), 'Name property');
+
+		$collation = $reflector->getProperty('collation');
+		$collation->setAccessible(true);
+		$this->assertSame('utf8mb4_unicode_ci', $collation->getValue($table), 'Collation property');
+	}
+
 }

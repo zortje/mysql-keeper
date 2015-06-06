@@ -78,7 +78,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$row = [
 			'Field'     => null,
 			'Type'      => null,
-			'Collation' => 'utf8_unicode_ci',
+			'Collation' => 'utf8mb4_unicode_ci',
 			'Null'      => null,
 			'Key'       => null,
 			'Default'   => null,
@@ -87,7 +87,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 
 		$column = new Column($row);
 
-		$this->assertSame('utf8_unicode_ci', $column->getCollation());
+		$this->assertSame('utf8mb4_unicode_ci', $column->getCollation());
 	}
 
 	/**
@@ -135,7 +135,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$row = [
 			'Field'     => null,
 			'Type'      => null,
-			'Collation' => 'utf8_unicode_ci',
+			'Collation' => 'utf8mb4_unicode_ci',
 			'Null'      => null,
 			'Key'       => null,
 			'Default'   => null,

@@ -5,5 +5,5 @@ CREATE TABLE `nodes` (
 	UNIQUE INDEX `unique` (`id`),
 	INDEX `key` (`id`)
 )
-COLLATE='utf8_unicode_ci'
+COLLATE='utf8mb4_unicode_ci'
 ENGINE=InnoDB;
