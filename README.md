@@ -2,11 +2,19 @@
 
 Find incorrect configurations or missed optimization opportunities in MySQL databases.
 
-[![Packagist](https://img.shields.io/packagist/v/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper) [![Travis branch](https://img.shields.io/travis/zortje/mysql-keeper/master.svg)](https://travis-ci.org/zortje/mysql-keeper) [![Scrutinizer branch](https://img.shields.io/scrutinizer/coverage/g/zortje/mysql-keeper/master.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) 
+[![Packagist](https://img.shields.io/packagist/v/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper) [![Travis branch](https://img.shields.io/travis/zortje/mysql-keeper/master.svg)](https://travis-ci.org/zortje/mysql-keeper) [![Scrutinizer branch](https://img.shields.io/scrutinizer/coverage/g/zortje/mysql-keeper/master.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Scrutinizer](https://img.shields.io/scrutinizer/g/zortje/mysql-keeper.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Packagist](https://img.shields.io/packagist/dt/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper)
 
-[![Scrutinizer](https://img.shields.io/scrutinizer/g/zortje/mysql-keeper.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Code Climate](https://img.shields.io/codeclimate/github/zortje/mysql-keeper.svg)](https://codeclimate.com/github/zortje/mysql-keeper) [![Codacy](https://img.shields.io/codacy/1c9ba18e61664f84885bd76d1468ced9.svg)](https://www.codacy.com/public/zortje/mysql-keeper_2)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5e82512c-6549-4219-a4ad-0d6771bb48c9/big.png)](https://insight.sensiolabs.com/projects/5e82512c-6549-4219-a4ad-0d6771bb48c9)
 
-[![VersionEye](https://img.shields.io/versioneye/d/php/zortje:mysql-keeper.svg?style=flat)](https://www.versioneye.com/php/zortje:mysql-keeper) [![Packagist](https://img.shields.io/packagist/dt/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper)
+## Features
+
+Detects the following issues
+
+* Duplicate indices
+* Missing primary key on auto_increment column
+* Redundant unique index on primary key
+* Redundant key index on primary key
+* Inconsistent usage of collation between table and columns
 
 ## Installing via Composer
 
@@ -81,13 +89,3 @@ Simply run:
 ```
 $ melody run mysql-keeper_myapp.php
 ```
-
-## Features
-
-Detects the following issues
-
-* Duplicate indices
-* Missing primary key on auto_increment column
-* Redundant unique index on primary key
-* Redundant key index on primary key
-* Inconsistent usage of collation between table and columns

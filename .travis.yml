@@ -2,6 +2,8 @@ language: php
 
 notifications:
   email: false
+  slack:
+    secure: MZxyzW0WH8v3Z6z/KGPH2I3L0xY4+ss60/Sygpd4FrSDoWsGS1MpwJ+35sOB86eptIhRUeueYdiWqqoxkfBXUfWUlYSmc+o9dDUMEbItvqH0+/aYrDxrzFsOw2VCOa8DtbewMhsd/6JUfs/CAaQeD7Hhk0uzLGJeySxyQSnQXvI=
 
 php:
   - 5.4
@@ -16,5 +18,3 @@ before_script:
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
-  - vendor/bin/test-reporter --stdout > codeclimate.json
-  - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
