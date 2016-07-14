@@ -2,7 +2,12 @@
 
 Find incorrect configurations or missed optimization opportunities in MySQL databases.
 
-[![Packagist](https://img.shields.io/packagist/v/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper) [![Travis branch](https://img.shields.io/travis/zortje/mysql-keeper/master.svg)](https://travis-ci.org/zortje/mysql-keeper) [![Scrutinizer branch](https://img.shields.io/scrutinizer/coverage/g/zortje/mysql-keeper/master.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Scrutinizer](https://img.shields.io/scrutinizer/g/zortje/mysql-keeper.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master) [![Packagist](https://img.shields.io/packagist/dt/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper)
+[![Packagist](https://img.shields.io/packagist/v/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper)
+[![Travis branch](https://img.shields.io/travis/zortje/mysql-keeper/master.svg)](https://travis-ci.org/zortje/mysql-keeper)
+[![Scrutinizer branch](https://img.shields.io/scrutinizer/coverage/g/zortje/mysql-keeper/master.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master)
+[![Scrutinizer](https://img.shields.io/scrutinizer/g/zortje/mysql-keeper.svg?style=flat)](https://scrutinizer-ci.com/g/zortje/mysql-keeper/?branch=master)
+[![Dependency Status](https://dependencyci.com/github/zortje/mysql-keeper/badge)](https://dependencyci.com/github/zortje/mysql-keeper)
+[![Packagist](https://img.shields.io/packagist/dt/zortje/mysql-keeper.svg?style=flat)](https://packagist.org/packages/zortje/mysql-keeper)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/5e82512c-6549-4219-a4ad-0d6771bb48c9/big.png)](https://insight.sensiolabs.com/projects/5e82512c-6549-4219-a4ad-0d6771bb48c9)
 
