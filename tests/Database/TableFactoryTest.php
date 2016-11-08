@@ -44,7 +44,7 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$result = $table->getResult();
 
 		$this->assertSame('users', $table->getName());
-		$this->assertSame('utf8_unicode_ci', $table->getCollation());
+		$this->assertSame('utf8mb4_unicode_ci', $table->getCollation());
 
 		$expected = [
 			'issues' => [
@@ -80,7 +80,7 @@ class TableFactoryTest extends \PHPUnit_Framework_TestCase {
 		$result = $table->getResult();
 
 		$this->assertSame('nodes', $table->getName());
-		$this->assertSame('utf8_unicode_ci', $table->getCollation());
+		$this->assertSame('utf8mb4_unicode_ci', $table->getCollation());
 
 		$expected = [
 			'issues' => [

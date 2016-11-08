@@ -2,6 +2,7 @@
 
 namespace Zortje\MySQLKeeper\Database;
 
+use Zortje\MySQLKeeper\Database\Table\Column;
 use Zortje\MySQLKeeper\Database\Table\ColumnCollection;
 use Zortje\MySQLKeeper\Database\Table\IndexCollection;
 
@@ -96,6 +97,9 @@ class Table {
 	public function checkColumns(ColumnCollection $columns) {
 		$result = [];
 
+		/**
+		 * @var Column $column
+		 */
 		foreach ($columns as $column) {
 			$result = array_merge($result, $column->getResult());
 		}

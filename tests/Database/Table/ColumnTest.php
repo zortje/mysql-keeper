@@ -78,7 +78,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 		$row = [
 			'Field'     => null,
 			'Type'      => null,
-			'Collation' => 'utf8_unicode_ci',
+			'Collation' => 'utf8mb4_unicode_ci',
 			'Null'      => null,
 			'Key'       => null,
 			'Default'   => null,
@@ -87,7 +87,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 
 		$column = new Column($row);
 
-		$this->assertSame('utf8_unicode_ci', $column->getCollation());
+		$this->assertSame('utf8mb4_unicode_ci', $column->getCollation());
 	}
 
 	/**
@@ -131,11 +131,11 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @covers ::hasCollation
 	 */
-	public function hasCollation() {
+	public function testHasCollation() {
 		$row = [
 			'Field'     => null,
 			'Type'      => null,
-			'Collation' => 'utf8_unicode_ci',
+			'Collation' => 'utf8mb4_unicode_ci',
 			'Null'      => null,
 			'Key'       => null,
 			'Default'   => null,
@@ -150,7 +150,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @covers ::hasCollation
 	 */
-	public function hasCollationNull() {
+	public function testHasCollationNull() {
 		$row = [
 			'Field'     => null,
 			'Type'      => null,
@@ -169,7 +169,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @covers ::hasCollation
 	 */
-	public function hasCollationEmpty() {
+	public function testHasCollationEmpty() {
 		$row = [
 			'Field'     => null,
 			'Type'      => null,
@@ -325,4 +325,8 @@ class ColumnTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame(0, count($result));
 	}
+
+	// @todo Test checkAutoIncrement
+
+	// @todo tests for ::getResult should determine expected result from checkAutoIncrement($column) and then seeing the actual result from getResult()
 }
